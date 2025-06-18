@@ -1,2 +1,1 @@
-# cliente
-Content rediraction pages to organize functions for users
+Tag project for NFC redirection.
