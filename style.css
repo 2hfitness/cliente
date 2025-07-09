@@ -55,20 +55,20 @@ h3 {
   justify-content: center;
   min-height: 50px;
   margin: 15px auto;
-  padding: 0 20px;
-  border: 2px solid #aed61e;
-  border-radius: 12px;
-  font-size: 18px;
+  padding: 12px 20px;
+  width: 100%;
+  max-width: 340px;
+  font-size: 16px;
   font-weight: bold;
   color: #aed61e;
+  border: 2px solid #aed61e;
+  border-radius: 12px;
+  background: transparent;
   text-align: center;
   text-decoration: none;
-  width: 85%;
-  max-width: 340px;
-  background: transparent;
+  white-space: normal; /* Permite quebra de linha */
   transition: all 0.2s ease;
   cursor: pointer;
-  white-space: nowrap;
   box-shadow:
     0 0 4px #aed61e,
     0 0 10px rgba(174, 214, 30, 0.4),
