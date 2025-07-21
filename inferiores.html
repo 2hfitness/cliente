@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Exercícios Inferiores - 2H.Fitness</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="fundo-fixo"></div>
+
+  <img src="imgs/logo.png" alt="Logo da academia 2H.Fitness" class="logo" />
+  <h1>Escolha seu grupo muscular:</h1>
+
+  <!-- Botões de grupo muscular -->
+  <a href="#" class="btn" onclick="mostrarExercicios('quadriceps')">Quadríceps</a>
+  <div id="quadriceps" class="gif-grid">
+    <img src="gifs/inferiores/quadriceps/1.gif" alt="Agachamento Livre" onclick="ampliarImagem(this.src)">
+	<img src="gifs/inferiores/quadriceps/2.gif" alt="Cadeira Extensora" onclick="ampliarImagem(this.src)">
+	<img src="gifs/inferiores/quadriceps/3.gif" alt="Leg Press 45°" onclick="ampliarImagem(this.src)">
+	<img src="gifs/inferiores/quadriceps/4.gif" alt="Agachamento Frontal" onclick="ampliarImagem(this.src)">
+	<img src="gifs/inferiores/quadriceps/5.gif" alt="Afundo com Halteres" onclick="ampliarImagem(this.src)">
+	<img src="gifs/inferiores/quadriceps/6.gif" alt="Agachamento no Smith" onclick="ampliarImagem(this.src)">
+	<img src="gifs/inferiores/quadriceps/8.gif" alt="Passada no Step" onclick="ampliarImagem(this.src)">
+	<img src="gifs/inferiores/quadriceps/9.gif" alt="Afundo no Smith" onclick="ampliarImagem(this.src)">
+	<img src="gifs/inferiores/quadriceps/11.gif" alt="Agachamento Búlgaro" onclick="ampliarImagem(this.src)"> 
+	<img src="gifs/inferiores/quadriceps/14.gif" alt="Agachamento com Halteres" onclick="ampliarImagem(this.src)">
+	<img src="gifs/inferiores/quadriceps/16.gif" alt="Agachamento com Halteres 2" onclick="ampliarImagem(this.src)">
+  </div>
+
+  <a href="#" class="btn" onclick="mostrarExercicios('isquio')">Isquiotibiais</a>
+  <div id="isquio" class="gif-grid">
+	<img src="gifs/inferiores/isquiotibiais/1.gif" alt="Mesa Flexora" onclick="ampliarImagem(this.src)">
+	<img src="gifs/inferiores/isquiotibiais/2.gif" alt="Stiff com Halteres" onclick="ampliarImagem(this.src)">
+	<img src="gifs/inferiores/isquiotibiais/3.gif" alt="Stiff com Barra" onclick="ampliarImagem(this.src)">
+	<img src="gifs/inferiores/isquiotibiais/4.gif" alt="Levantamento Terra Romeno" onclick="ampliarImagem(this.src)">
+	<img src="gifs/inferiores/isquiotibiais/6.gif" alt="Flexora Sentado" onclick="ampliarImagem(this.src)">
+	<img src="gifs/inferiores/isquiotibiais/7.gif" alt="Good Morning com Barra" onclick="ampliarImagem(this.src)">
+	<img src="gifs/inferiores/isquiotibiais/9.gif" alt="Levantamento Terra Convencional" onclick="ampliarImagem(this.src)">
+	<img src="gifs/inferiores/isquiotibiais/10.gif" alt="Stiff Unilateral" onclick="ampliarImagem(this.src)">
+	<img src="gifs/inferiores/isquiotibiais/11.gif" alt="Flexora com Bola Suíça" onclick="ampliarImagem(this.src)">
+  </div>
+
+  <a href="#" class="btn" onclick="mostrarExercicios('adutores')">Adutores</a>
+  <div id="adutores" class="gif-grid">
+	<img src="gifs/inferiores/adutores/1.gif" alt="Cadeira Adutora" onclick="ampliarImagem(this.src)">
+	<img src="gifs/inferiores/adutores/2.gif" alt="Adutor no Cabo" onclick="ampliarImagem(this.src)">
+	<img src="gifs/inferiores/adutores/4.gif" alt="Agachamento Sumo" onclick="ampliarImagem(this.src)">
+	<img src="gifs/inferiores/adutores/5.gif" alt="Afundo Lateral" onclick="ampliarImagem(this.src)">
+  </div>
+
+  <a href="#" class="btn" onclick="mostrarExercicios('abdutores')">Abdutores</a>
+  <div id="abdutores" class="gif-grid">
+	<img src="gifs/inferiores/abdutores/1.gif" alt="Cadeira Abdutora" onclick="ampliarImagem(this.src)">
+	<img src="gifs/inferiores/abdutores/2.gif" alt="Abdução em Pé (Polia ou Caneleira)" onclick="ampliarImagem(this.src)">
+	<img src="gifs/inferiores/abdutores/4.gif" alt="Elevação Lateral de Perna Deitado (Elastico ou Caneleira)" onclick="ampliarImagem(this.src)">
+	<!-- <img src="gifs/inferiores/abdutores/9.gif" alt="Abdução na Ponte de Glúteo" onclick="ampliarImagem(this.src)"> -->
+	<!-- <img src="gifs/inferiores/abdutores/10.gif" alt="Abdução com Faixa Acima dos Joelhos" onclick="ampliarImagem(this.src)"> -->
+	<!-- <img src="gifs/inferiores/abdutores/11.gif" alt="Caminhada Lateral com Elástico" onclick="ampliarImagem(this.src)"> -->
+	<img src="gifs/inferiores/abdutores/12.gif" alt="Fire Hydrant" onclick="ampliarImagem(this.src)">
+	<!-- <img src="gifs/inferiores/abdutores/13.gif" alt="Elevação Lateral na Máquina" onclick="ampliarImagem(this.src)"> -->
+  </div>
+
+  <a href="#" class="btn" onclick="mostrarExercicios('panturrilha')">Panturrilha</a>
+  <div id="panturrilha" class="gif-grid">
+	<img src="gifs/inferiores/panturrilhas/1.gif" alt="Elevação de Panturrilha em Pé" onclick="ampliarImagem(this.src)">
+	<!-- <img src="gifs/inferiores/panturrilhas/2.gif" alt="Elevação de Panturrilha Sentado" onclick="ampliarImagem(this.src)"> -->
+	<img src="gifs/inferiores/panturrilhas/3.gif" alt="Elevação de Panturrilha no Leg Press" onclick="ampliarImagem(this.src)">
+	<img src="gifs/inferiores/panturrilhas/6.gif" alt="Panturrilha no Smith Machine" onclick="ampliarImagem(this.src)">
+	<img src="gifs/inferiores/panturrilhas/10.gif" alt="Panturrilha Unilateral" onclick="ampliarImagem(this.src)">
+  </div>
+
+  <a href="#" class="btn" onclick="mostrarExercicios('gluteo')">Glúteo</a>
+  <div id="gluteo" class="gif-grid">
+	<img src="gifs/inferiores/gluteos/1.gif" alt="Ponte de Glúteo" onclick="ampliarImagem(this.src)">
+	<img src="gifs/inferiores/gluteos/2.gif" alt="Elevação de Quadril com Barra" onclick="ampliarImagem(this.src)">
+	<img src="gifs/inferiores/gluteos/4.gif" alt="Afundo Búlgaro" onclick="ampliarImagem(this.src)">
+	<img src="gifs/inferiores/gluteos/5.gif" alt="Stiff com Halteres" onclick="ampliarImagem(this.src)">
+	<img src="gifs/inferiores/gluteos/6.gif" alt="Glute Kickback no Cabo" onclick="ampliarImagem(this.src)">
+	<img src="gifs/inferiores/adutores/4.gif" alt="Agachamento Sumo" onclick="ampliarImagem(this.src)">
+	<img src="gifs/inferiores/gluteos/9.gif" alt="Quatro Apoios (Elevação de Perna)" onclick="ampliarImagem(this.src)">
+	<img src="gifs/inferiores/gluteos/10.gif" alt="Ponte de Glúteo Unilateral" onclick="ampliarImagem(this.src)">
+	<img src="gifs/inferiores/gluteos/11.gif" alt="Hip Thrust com Barra" onclick="ampliarImagem(this.src)">
+	<img src="gifs/inferiores/gluteos/12.gif" alt="Cadeira Abdutora" onclick="ampliarImagem(this.src)">
+	<!-- <img src="gifs/inferiores/gluteos/13.gif" alt="Fire Hydrant com Faixa" onclick="ampliarImagem(this.src)"> -->
+	<img src="gifs/inferiores/gluteos/14.gif" alt="Levantamento Terra Romeno" onclick="ampliarImagem(this.src)">
+	<img src="gifs/inferiores/gluteos/16.gif" alt="Stiff Unilateral" onclick="ampliarImagem(this.src)">
+  </div>
+
+  <!-- Botões de navegação -->
+  <a href="exercicios.html" class="btn">← Voltar</a>
+  <a href="index.html" class="btn">← Página Inicial</a>
+
+  <!-- Modal para imagem ampliada -->
+  <div id="modalImagem" class="modal-img" onclick="fecharModalImagem()">
+    <img id="imagemAmpliada" src="" alt="Imagem ampliada">
+  </div>
+
+  <footer>
+    <p><b>2H.Fitness Ltda</b> - Rua Teodora Barbosa Ribeiro, 367 - Arrozal, Piraí - RJ</p>
+    <p>CNPJ: 61.202.754/0001-19</p>
+    <p>&copy; 2025 - Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    let grupoAtualVisivel = null;
+
+    function mostrarExercicios(id) {
+      const alvo = document.getElementById(id);
+
+      if (grupoAtualVisivel === id) {
+        alvo.style.display = 'none';
+        grupoAtualVisivel = null;
+        return;
+      }
+
+      const todasAsGrids = document.querySelectorAll('.gif-grid');
+      todasAsGrids.forEach(div => div.style.display = 'none');
+
+      if (alvo) {
+        alvo.style.display = 'flex';
+        grupoAtualVisivel = id;
+      }
+    }
+
+    function ampliarImagem(src) {
+      const modal = document.getElementById('modalImagem');
+      const imagem = document.getElementById('imagemAmpliada');
+      imagem.src = src;
+      modal.style.display = 'flex';
+    }
+
+    function fecharModalImagem() {
+      document.getElementById('modalImagem').style.display = 'none';
+      document.getElementById('imagemAmpliada').src = "";
+    }
+  </script>
+</body>
+</html>

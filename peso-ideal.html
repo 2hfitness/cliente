@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IMC e Peso Ideal - 2H.Fitness</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="fundo-fixo"></div>
+
+  <img src="imgs/logo.png" alt="Logo da academia 2H.Fitness" class="logo" />
+  <h1>Descubra seu IMC e Peso Ideal</h1>
+
+  <div class="modal-content" style="max-width: 500px; margin: auto;">
+
+    <!-- Botão Masculino -->
+    <button class="btn" onclick="mostrarFormulario('masculino')">Masculino</button>
+    <div id="form-masculino" style="display:none; margin-bottom: 20px;">
+      <div style="display: flex; gap: 10px;">
+        <input type="number" id="altura-masc" placeholder="Altura (ex: 170cm)" style="flex:1;">
+        <input type="number" id="peso-masc" placeholder="Peso (ex: 65kg)" style="flex:1;">
+      </div>
+      <div id="resultado-masc" style="margin-top: 10px; color: #aed61e;"></div>
+    </div>
+
+    <!-- Botão Feminino -->
+    <button class="btn" onclick="mostrarFormulario('feminino')">Feminino</button>
+    <div id="form-feminino" style="display:none; margin-bottom: 20px;">
+      <div style="display: flex; gap: 10px;">
+        <input type="number" id="altura-fem" placeholder="Altura (ex: 170cm)" style="flex:1;">
+        <input type="number" id="peso-fem" placeholder="Peso (ex: 65kg)" style="flex:1;">
+      </div>
+      <div id="resultado-fem" style="margin-top: 10px; color: #aed61e;"></div>
+    </div>
+
+    <!-- Botões inferiores -->
+    <button class="btn" onclick="calcularIMCePesoIdeal()">Confirmar</button>
+    <a href="index.html" class="btn" style="margin-top: 20px;">Voltar</a>
+  </div>
+
+  <script>
+    let sexoSelecionado = "";
+
+    function mostrarFormulario(sexo) {
+      sexoSelecionado = sexo;
+      document.getElementById("form-masculino").style.display = sexo === "masculino" ? "block" : "none";
+      document.getElementById("form-feminino").style.display = sexo === "feminino" ? "block" : "none";
+      document.getElementById("resultado-masc").innerHTML = "";
+      document.getElementById("resultado-fem").innerHTML = "";
+
+      // Limpar campos
+      document.getElementById("altura-masc").value = "";
+      document.getElementById("peso-masc").value = "";
+      document.getElementById("altura-fem").value = "";
+      document.getElementById("peso-fem").value = "";
+    }
+
+	function calcularIMCePesoIdeal() {
+	  if (!sexoSelecionado) {
+		alert("Selecione o sexo.");
+		return;
+	  }
+
+	  const alturaId = sexoSelecionado === "masculino" ? "altura-masc" : "altura-fem";
+	  const pesoId = sexoSelecionado === "masculino" ? "peso-masc" : "peso-fem";
+	  const resultadoId = sexoSelecionado === "masculino" ? "resultado-masc" : "resultado-fem";
+
+	  const alturaCm = parseFloat(document.getElementById(alturaId).value);
+	  const peso = parseFloat(document.getElementById(pesoId).value);
+
+	  if (!alturaCm || alturaCm <= 0 || !peso || peso <= 0) {
+		alert("Preencha altura e peso corretamente.");
+		return;
+	  }
+
+	  const alturaM = alturaCm / 100;
+	  const imc = peso / (alturaM * alturaM);
+	  const fator = sexoSelecionado === "masculino" ? 22 : 21;
+	  const pesoIdeal = fator * alturaM * alturaM;
+
+	  let interpretacao = "";
+
+	  if (imc < 18.5) {
+		interpretacao = "Baixo peso";
+	  } else if (imc < 25) {
+		interpretacao = "Peso normal";
+	  } else if (imc < 30) {
+		interpretacao = "Sobrepeso";
+	  } else if (imc < 40) {
+		interpretacao = "Obesidade";
+	  } else {
+		interpretacao = "Obesidade grave";
+	  }
+
+	  document.getElementById(resultadoId).innerHTML = `
+		<p>🧮 Seu IMC é <b>${imc.toFixed(1)}</b> (${interpretacao})</p>
+		<p>✅ Peso ideal estimado: <b>${pesoIdeal.toFixed(1)} kg</b></p>
+	  `;
+	}
+
+  </script>
+</body>
+</html>
