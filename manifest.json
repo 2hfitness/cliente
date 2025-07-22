@@ -1,7 +1,7 @@
 {
   "name": "2H.Fitness",
-  "short_name": "2H.Fitness",
-  "start_url": "https://2hfitness.github.io/cliente/",
+  "short_name": "2HFitness",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#000000",
