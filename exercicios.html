@@ -24,5 +24,25 @@
     <p>CNPJ: 61.202.754/0001-19</p>
     <p>&copy; 2025 - Todos os direitos reservados.</p>
   </footer>
+
+  <script>
+    document.addEventListener("contextmenu", e => e.preventDefault());
+    document.addEventListener("DOMContentLoaded", () => {
+      document.body.style.userSelect = "none";
+      document.body.style.webkitUserSelect = "none";
+      document.body.style.msUserSelect = "none";
+    });
+    document.addEventListener("keydown", function(e) {
+      if (
+        (e.ctrlKey && (e.key === 'u' || e.key === 'U')) ||
+        (e.key === 'F12') ||
+        (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+        (e.ctrlKey && e.shiftKey && e.key === 'J')
+      ) {
+        e.preventDefault();
+      }
+    });
+  </script>
+  
 </body>
 </html>
