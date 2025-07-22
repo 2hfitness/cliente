@@ -146,7 +146,7 @@ function mostrarPlano() {
 function mostrarQRCode(valor) {
   const qrImg = document.getElementById("qrCodeImagem");
   planoSelecionado = valor === "80" ? "Plano Mensal - R$80,00" : "Plano (3x por semana) - R$65,00";
-  qrImg.src = valor === "80" ? "qr_code/qr code 80.png" : "qr_code/qrcode 65.png";
+  qrImg.src = valor === "80" ? "qr_code/qrcode 80.png" : "qr_code/qrcode 65.png";
   document.getElementById("qrcodeContainer").style.display = "block";
 }
 
