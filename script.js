@@ -277,11 +277,14 @@ function mostrarFormulario(sexo) {
 
 function abrirMenu() {
   document.getElementById("menuLateral").style.left = "0";
+  document.body.classList.add("menu-aberto");
 }
 
 function fecharMenu() {
   document.getElementById("menuLateral").style.left = "-260px";
+  document.body.classList.remove("menu-aberto");
 }
+
 
 function fecharTodosModais() {
   const modais = document.querySelectorAll(".modal");
