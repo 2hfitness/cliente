@@ -25,14 +25,14 @@
   <img src="imgs/logo.png" alt="Logo da academia 2H.Fitness" class="logo" />
   <h1>Transforme seu corpo,<br>transforme sua vida.</h1>
 
-  <a href="https://www.instagram.com/2h_fitness" class="btn" target="_blank">Instagram</a>
+  <a href="https://www.instagram.com/2h_fitness" class="btn" onclick="if (menuAberto()) return false;" target="_blank">Instagram</a>
 
   <div class="qr-container">
     <p id="msgPix"></p>
     <span id="pixNumero">90349174-bd4e-4791-9580-ef12d35f621d</span>
   </div>
 
-  <a href="#" class="btn" onclick="abrirMapa()">Localização</a>
+  <a href="#" class="btn" onclick="if (menuAberto()) return false; abrirMapa()">Localização</a>
   <div id="modalMapa" class="modal">
     <div class="modal-content">
       <h1>Localização</h1>
@@ -87,7 +87,7 @@
     </div>
   </div>
 
-  <a href="exercicios.html" class="btn">Exercícios</a>
+  <a href="exercicios.html" class="btn" onclick="if (menuAberto()) return false;">Exercícios</a>
 
   <div id="modalIMC" class="modal">
     <div class="modal-content" style="max-width: 500px;">
