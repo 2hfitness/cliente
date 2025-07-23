@@ -30,8 +30,7 @@ function copiarParaAreaDeTransferencia(texto, msgSucesso, msgErro, elementoMsg) 
 
 function copiarPix() {
   const numeroPix = document.getElementById("pixNumero").innerText;
-  const msgPix = document.getElementById("msgPix");
-  copiarParaAreaDeTransferencia(numeroPix, "Chave Pix copiada com sucesso!", "Erro ao copiar Pix", msgPix);
+  copiarParaAreaDeTransferencia(numeroPix, "Chave Pix copiada com sucesso!", "Erro ao copiar Pix");
 }
 
 function copiarCodigoPix() {
@@ -41,7 +40,7 @@ function copiarCodigoPix() {
   copiarParaAreaDeTransferencia(codigo, "QR Code copiado com sucesso!", "Erro ao copiar o código Pix");
 }
 
-// --- MAPA & WIFI ---
+// --- MAPA ---
 
 function toggleExibicao(id, textoExibir, textoOcultar, botaoId) {
   const el = document.getElementById(id);
@@ -55,9 +54,6 @@ function toggleMapa() {
   toggleExibicao("meuMapa", "Localização", "Ocultar Localização", "botaoMapa");
 }
 
-function toggleWifi() {
-  toggleExibicao("wifiContainer", "Wi-Fi", "Ocultar Wi-Fi", "botaoWifi");
-}
 
 // --- CARROSSEL ---
 
@@ -247,9 +243,115 @@ function formatarCelular(input) {
   input.value = valor;
 }
 
+function abrirMapa() {
+  document.getElementById("modalMapa").style.display = "block";
+}
+
+function fecharMapa() {
+  document.getElementById("modalMapa").style.display = "none";
+}
+
+let sexoSelecionado = "";
+
+function abrirModalIMC() {
+  document.getElementById("modalIMC").style.display = "block";
+}
+
+function fecharModalIMC() {
+  document.getElementById("modalIMC").style.display = "none";
+}
+
+function mostrarFormulario(sexo) {
+  sexoSelecionado = sexo;
+  document.getElementById("form-masculino").style.display = sexo === "masculino" ? "block" : "none";
+  document.getElementById("form-feminino").style.display = sexo === "feminino" ? "block" : "none";
+  document.getElementById("resultado-masc").innerHTML = "";
+  document.getElementById("resultado-fem").innerHTML = "";
+
+  // Limpa campos
+  document.getElementById("altura-masc").value = "";
+  document.getElementById("peso-masc").value = "";
+  document.getElementById("altura-fem").value = "";
+  document.getElementById("peso-fem").value = "";
+}
+
+function abrirMenu() {
+  document.getElementById("menuLateral").style.left = "0";
+}
+
+function fecharMenu() {
+  document.getElementById("menuLateral").style.left = "-260px";
+}
+
+function fecharTodosModais() {
+  const modais = document.querySelectorAll(".modal");
+  modais.forEach(modal => {
+    modal.style.display = "none";
+  });
+}
+
+
+function calcularIMCePesoIdeal() {
+  if (!sexoSelecionado) {
+    alert("Selecione o sexo.");
+    return;
+  }
+
+  const alturaId = sexoSelecionado === "masculino" ? "altura-masc" : "altura-fem";
+  const pesoId = sexoSelecionado === "masculino" ? "peso-masc" : "peso-fem";
+  const resultadoId = sexoSelecionado === "masculino" ? "resultado-masc" : "resultado-fem";
+
+  const alturaCm = parseFloat(document.getElementById(alturaId).value);
+  const peso = parseFloat(document.getElementById(pesoId).value);
+
+  if (!alturaCm || alturaCm <= 0 || !peso || peso <= 0) {
+    alert("Preencha altura e peso corretamente.");
+    return;
+  }
+
+  const alturaM = alturaCm / 100;
+  const imc = peso / (alturaM * alturaM);
+  const fator = sexoSelecionado === "masculino" ? 22 : 21;
+  const pesoIdeal = fator * alturaM * alturaM;
+
+  let interpretacao = "";
+
+  if (imc < 18.5) {
+    interpretacao = "Baixo peso";
+  } else if (imc < 25) {
+    interpretacao = "Peso normal";
+  } else if (imc < 30) {
+    interpretacao = "Sobrepeso";
+  } else if (imc < 40) {
+    interpretacao = "Obesidade";
+  } else {
+    interpretacao = "Obesidade grave";
+  }
+
+  document.getElementById(resultadoId).innerHTML = `
+    <p>🧮 Seu IMC é <b>${imc.toFixed(1)}</b> (${interpretacao})</p>
+    <p>✅ Peso ideal estimado: <b>${pesoIdeal.toFixed(1)} kg</b></p>
+  `;
+}
+
+
 // Fechar modais ao clicar fora
 window.onclick = function(event) {
   if (event.target.classList.contains("modal")) {
     event.target.style.display = "none";
   }
-};
+}
+
+document.addEventListener("click", function (event) {
+  const menu = document.getElementById("menuLateral");
+  const toggleBtn = document.querySelector(".menu-toggle");
+
+  const clicouDentroDoMenu = menu.contains(event.target);
+  const clicouNoBotaoMenu = toggleBtn.contains(event.target);
+
+  if (!clicouDentroDoMenu && !clicouNoBotaoMenu) {
+    fecharMenu();
+  }
+})
+
+;
