@@ -380,7 +380,7 @@ footer {
   left: -260px;
   width: 250px;
   height: 100%;
-  background-color: #111;
+  background-color: rgba(17, 17, 17, 0.92); /* Transparência */
   box-shadow: 2px 0 12px rgba(0, 0, 0, 0.6);
   padding: 20px;
   z-index: 999;
