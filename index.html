@@ -19,35 +19,31 @@
 </head>
 
 <body>
+  <button class="menu-toggle" onclick="abrirMenu()">☰</button>
   <div class="fundo-fixo"></div>
 
   <img src="imgs/logo.png" alt="Logo da academia 2H.Fitness" class="logo" />
   <h1>Transforme seu corpo,<br>transforme sua vida.</h1>
 
   <a href="https://www.instagram.com/2h_fitness" class="btn" target="_blank">Instagram</a>
-  <a href="#" class="btn" onclick="copiarPix()">Copiar chave PIX</a>
 
   <div class="qr-container">
     <p id="msgPix"></p>
     <span id="pixNumero">90349174-bd4e-4791-9580-ef12d35f621d</span>
   </div>
 
-  <a href="#" class="btn" onclick="toggleMapa()" id="botaoMapa">Localização</a>
-  <div class="mapa-container">
-    <iframe id="meuMapa"
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675.628287102922!2d-43.88118462572556!3d-22.89169013785696!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9970bc2906ebf7%3A0x8c0628dc72a87d26!2sR.%20Teodora%20Barbosa%20Ribeiro%2C%20367%20-%20Arrozal%2C%20Pira%C3%AD%20-%20RJ%2C%2027185-000!5e0!3m2!1spt-BR!2sbr!4v1718797795602!5m2!1spt-BR!2sbr
-      allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa da academia 2H.Fitness">
-    </iframe>
+  <a href="#" class="btn" onclick="abrirMapa()">Localização</a>
+  <div id="modalMapa" class="modal">
+    <div class="modal-content">
+      <h1>Localização</h1>
+      <iframe id="meuMapa"
+        src="https://www.google.com/maps/embed?pb=..."
+        allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa da academia 2H.Fitness"
+        style="width:100%; height:300px; border-radius: 12px; border: none;">
+      </iframe>
+      <button class="btn" onclick="fecharMapa()">Fechar</button>
+    </div>
   </div>
-
-  <a href="#" class="btn" onclick="toggleWifi()" id="botaoWifi">Wi-Fi</a>
-  <div class="mapa-container" id="wifiContainer" style="display: none;">
-    <p><b>Rede:</b> FERABRAZNET HAPPY 91<br><b>Senha:</b> 81213116</p>
-    <img src="qr_code/qr_wifi_pb.jpg" alt="QR Code para conexão Wi-Fi" class="qr-code-img" loading="lazy">
-    <p>Conecte manualmente ou escaneie o QR Code.</p>
-  </div>
-
-  <a href="#" class="btn" onclick="abrirMatricula()">Faça sua Matrícula</a>
 
   <div id="modalMatricula" class="modal">
     <div class="modal-content">
@@ -83,7 +79,6 @@
     </div>
   </div>
 
-  <a href="#" class="btn" onclick="abrirRenovacao()">Renove sua Matrícula</a>
   <div id="modalRenovacao" class="modal">
     <div class="modal-content">
       <h1>Renovação</h1>
@@ -94,7 +89,32 @@
 
   <a href="exercicios.html" class="btn">Exercícios</a>
 
-  <a href="peso-ideal.html" class="btn">Calcular Peso Ideal (IMC)</a>
+  <div id="modalIMC" class="modal">
+    <div class="modal-content" style="max-width: 500px;">
+      <h1>Descubra seu IMC e Peso Ideal</h1>
+
+      <button class="btn" onclick="mostrarFormulario('masculino')">Masculino</button>
+      <div id="form-masculino" style="display:none; margin-bottom: 20px;">
+        <div style="display: flex; gap: 10px;">
+          <input type="number" id="altura-masc" placeholder="ex: 170cm" style="flex:1;">
+          <input type="number" id="peso-masc" placeholder="ex: 65kg" style="flex:1;">
+        </div>
+        <div id="resultado-masc" style="margin-top: 10px; color: #aed61e;"></div>
+      </div>
+
+      <button class="btn" onclick="mostrarFormulario('feminino')">Feminino</button>
+      <div id="form-feminino" style="display:none; margin-bottom: 20px;">
+        <div style="display: flex; gap: 10px;">
+          <input type="number" id="altura-fem" placeholder="ex: 170cm" style="flex:1;">
+          <input type="number" id="peso-fem" placeholder="ex: 65kg" style="flex:1;">
+        </div>
+        <div id="resultado-fem" style="margin-top: 10px; color: #aed61e;"></div>
+      </div>
+
+      <button class="btn" onclick="calcularIMCePesoIdeal()">Confirmar</button>
+      <button class="btn" style="margin-top: 20px;" onclick="fecharModalIMC()">Fechar</button>
+    </div>
+  </div>
 
   <section class="horarios">
     <h3>Horário de funcionamento:</h3>
@@ -136,6 +156,15 @@
       </div>
     </div>
   </section>
+
+  <div id="menuLateral" class="menu-lateral">
+    <button class="close-btn" onclick="fecharMenu()">×</button>
+    <a href="#" onclick="fecharMenu(); fecharTodosModais(); abrirMatricula()">Faça sua matrícula</a>
+	<a href="#" onclick="fecharMenu(); fecharTodosModais(); abrirRenovacao()">Renove sua matrícula</a>
+	<a href="#" onclick="fecharMenu(); fecharTodosModais(); abrirModalIMC()">Calcular Peso Ideal</a>
+	<a href="#" onclick="fecharMenu(); fecharTodosModais(); copiarPix()">Copiar chave Pix</a>
+  </div>
+
 
   <footer>
     <p><b>2H.Fitness Ltda</b> - Rua Teodora Barbosa Ribeiro, 367 - Arrozal, Piraí - RJ</p>
