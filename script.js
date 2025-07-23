@@ -345,13 +345,15 @@ window.onclick = function(event) {
 document.addEventListener("click", function (event) {
   const menu = document.getElementById("menuLateral");
   const toggleBtn = document.querySelector(".menu-toggle");
-
+  const estaAberto = menu.style.left === "0px";
   const clicouDentroDoMenu = menu.contains(event.target);
   const clicouNoBotaoMenu = toggleBtn.contains(event.target);
 
-  if (!clicouDentroDoMenu && !clicouNoBotaoMenu) {
+  // Se o menu estiver aberto e clicou fora dele (mas não no botão ☰)
+  if (estaAberto && !clicouDentroDoMenu && !clicouNoBotaoMenu) {
+    event.stopPropagation();      // Impede que o clique afete o restante da página
+    event.preventDefault();       // Evita que links como o Instagram sejam abertos
     fecharMenu();
+    return;
   }
-})
-
-;
+});
