@@ -416,3 +416,17 @@ footer {
   margin-bottom: 10px;
 }
 
+body.menu-aberto .btn {
+  pointer-events: none;
+  opacity: 0.5;
+  box-shadow: none;
+  animation: none;
+  transform: none;
+}
+
+body.menu-aberto .btn:hover,
+body.menu-aberto .btn:active,
+body.menu-aberto .btn:focus {
+  background: none;
+  box-shadow: none;
+}
