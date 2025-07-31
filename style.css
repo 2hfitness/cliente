@@ -511,17 +511,20 @@ body.menu-aberto .btn:focus {
 @media (max-width: 600px) {
   .exercise-card {
     flex-direction: column;
-    align-items: center; /* <- adiciona isso para centralizar */
+    align-items: center;
+    text-align: center;
   }
+
   .exercise-card img {
     width: 100%;
     max-width: 260px;
     display: block;
-    margin: 0 auto; /* reforça centralização */
+    margin: 0 auto;
   }
+
   .exercise-info {
     width: 100%;
-    text-align: center; /* opcional: centraliza o texto também */
+    text-align: center;
   }
 }
 
@@ -529,4 +532,3 @@ body.menu-aberto .btn:focus {
 .exercise-card {
   cursor: pointer;
 }
-
