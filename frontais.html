@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Frontais - Exercícios - 2H.Fitness</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="fundo-fixo"></div>
+
+  <img src="imgs/logo.png" alt="Logo da academia 2H.Fitness" class="logo" />
+  <h1>Frontais</h1>
+
+  <div id="lista" class="lista-exercicios"></div>
+  <div id="paginacao" class="paginacao"></div>
+
+  <a href="inferiores.html" class="btn">← Voltar aos grupos inferiores</a>
+  <a href="index.html" class="btn">← Página Inicial</a>
+
+  <!-- Modal para imagem ampliada -->
+  <div id="modalImagem" class="modal-img" role="dialog" aria-modal="true" aria-label="GIF ampliado">
+    <img id="imagemAmpliada" src="" alt="Exercício ampliado">
+  </div>
+
+  <footer>
+    <p><b>2H.Fitness Ltda</b> - Rua Teodora Barbosa Ribeiro, 367 - Arrozal, Piraí - RJ</p>
+    <p>CNPJ: 61.202.754/0001-19</p>
+    <p>&copy; 2025 - Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+const exercicios = [
+  { src: "gifs/inferiores/frontais/Barbell-Bulgarian-Split-Squat.gif", nome: "Agachamento búlgaro com barra", descricao: "Trabalha quadríceps, glúteos e equilíbrio." },
+  { src: "gifs/inferiores/frontais/Barbell-Deadlift.gif", nome: "Levantamento terra com barra", descricao: "Exercício composto para posteriores, glúteos e lombar." },
+  { src: "gifs/inferiores/frontais/Barbell-Lunge.gif", nome: "Avanço com barra", descricao: "Trabalha quadríceps, posteriores e equilíbrio." },
+  { src: "gifs/inferiores/frontais/Barbell-Pin-Squat.gif", nome: "Agachamento com pinos", descricao: "Desenvolve força no ponto morto do movimento." },
+  { src: "gifs/inferiores/frontais/Barbell-Split-Squat.gif", nome: "Agachamento unilateral com barra", descricao: "Enfatiza quadríceps e estabilizadores." },
+  { src: "gifs/inferiores/frontais/BARBELL-SQUAT.gif", nome: "Agachamento livre com barra", descricao: "Trabalha quadríceps, glúteos e core." },
+  { src: "gifs/inferiores/frontais/Barbell-Sumo-Deadlift.gif", nome: "Levantamento terra sumô", descricao: "Foco em glúteos e adutores." },
+  { src: "gifs/inferiores/frontais/Barbell-sumo-squat.gif", nome: "Agachamento sumô com barra", descricao: "Trabalha parte interna das coxas e glúteos." },
+  { src: "gifs/inferiores/frontais/Bodyweight-Box-Squat.gif", nome: "Agachamento com peso corporal e caixa", descricao: "Ensina postura e ativa quadríceps." },
+  { src: "gifs/inferiores/frontais/Bodyweight-Bulgarian-Split-Squat.gif", nome: "Agachamento búlgaro peso corporal", descricao: "Foco em equilíbrio e força unilateral." },
+  { src: "gifs/inferiores/frontais/bodyweight-lunges.gif", nome: "Avanço com peso corporal", descricao: "Trabalha perna completa sem carga." },
+  { src: "gifs/inferiores/frontais/bodyweight-reverse-lunge.gif", nome: "Avanço reverso peso corporal", descricao: "Menos impacto nos joelhos com mesmo estímulo." },
+  { src: "gifs/inferiores/frontais/bodyweight-squat-full-version.gif", nome: "Agachamento completo", descricao: "Movimento funcional que ativa pernas e glúteos." },
+  { src: "gifs/inferiores/frontais/BODYWEIGHT-SUMO-SQUAT.gif", nome: "Agachamento sumô peso corporal", descricao: "Foco nos adutores e glúteos sem peso." },
+  { src: "gifs/inferiores/frontais/bodyweight-walking-lunge.gif", nome: "Avanço andando", descricao: "Ativa glúteos e melhora coordenação." },
+  { src: "gifs/inferiores/frontais/Box-pistol-Squat.gif", nome: "Pistol squat na caixa", descricao: "Versão acessível do agachamento unilateral." },
+  { src: "gifs/inferiores/frontais/Cable-Forward-Lunge.gif", nome: "Avanço com cabo", descricao: "Tensão contínua durante o movimento." },
+  { src: "gifs/inferiores/frontais/Cable-Front-Squat.gif", nome: "Agachamento frontal com cabo", descricao: "Foco em quadríceps com resistência constante." },
+  { src: "gifs/inferiores/frontais/Cable-Lunge.gif", nome: "Avanço com resistência por cabo", descricao: "Aumenta a dificuldade com controle." },
+  { src: "gifs/inferiores/frontais/Cable-Squat.gif", nome: "Agachamento com cabo", descricao: "Trabalha quadríceps com controle de carga." },
+  { src: "gifs/inferiores/frontais/dumbbell-bench-squat.gif", nome: "Agachamento com halteres e banco", descricao: "Ajuda na postura e amplitude correta." },
+  { src: "gifs/inferiores/frontais/Dumbbell-Bulgarian-Split-Squat.gif", nome: "Agachamento búlgaro com halteres", descricao: "Isolamento e força unilateral." },
+  { src: "gifs/inferiores/frontais/dumbbell-deadlifts.gif", nome: "Levantamento terra com halteres", descricao: "Trabalha posteriores e glúteos com controle." },
+  { src: "gifs/inferiores/frontais/Dumbbell-Goblet-Squat.gif", nome: "Agachamento goblet com halteres", descricao: "Postura ereta e foco no quadríceps." },
+  { src: "gifs/inferiores/frontais/Dumbbell-Lateral-Step-Up.gif", nome: "Subida lateral com halteres", descricao: "Trabalha glúteos e quadríceps." },
+  { src: "gifs/inferiores/frontais/Dumbbell-Lunge.gif", nome: "Avanço com halteres", descricao: "Movimento clássico para pernas." },
+  { src: "gifs/inferiores/frontais/dumbbell-lunges.gif", nome: "Passada com halteres", descricao: "Ativa coxas e melhora equilíbrio." },
+  { src: "gifs/inferiores/frontais/Dumbbell-Rear-Lunge.gif", nome: "Avanço para trás com halteres", descricao: "Menor impacto e mesmo estímulo muscular." },
+  { src: "gifs/inferiores/frontais/Dumbbell-Squat.gif", nome: "Agachamento com halteres", descricao: "Versátil para treinar quadríceps." },
+  { src: "gifs/inferiores/frontais/dumbbell-sumo-deadlift.gif", nome: "Levantamento terra sumô com halteres", descricao: "Ênfase em glúteos e adutores." },
+  { src: "gifs/inferiores/frontais/dumbbell-sumo-squat.gif", nome: "Agachamento sumô com halteres", descricao: "Trabalha parte interna das coxas." },
+  { src: "gifs/inferiores/frontais/Dumbbell-reverse-Lunge.gif", nome: "Passada reversa com halteres", descricao: "Controle de movimento e estabilidade." },
+  { src: "gifs/inferiores/frontais/Exercise-Ball-Wall-Squat.gif", nome: "Agachamento na bola suíça", descricao: "Apoio na parede para iniciantes." },
+  { src: "gifs/inferiores/frontais/jefferson-squat.gif", nome: "Agachamento Jefferson", descricao: "Movimento alternativo com foco em glúteos." },
+  { src: "gifs/inferiores/frontais/Jump-Squat.gif", nome: "Agachamento com salto", descricao: "Trabalha força e potência nas pernas." },
+  { src: "gifs/inferiores/frontais/Lateral-Step-up.gif", nome: "Subida lateral", descricao: "Melhora coordenação e ativa glúteos." },
+  { src: "gifs/inferiores/frontais/LEG-EXTENSION.gif", nome: "Extensora", descricao: "Isolamento total do quadríceps." },
+  { src: "gifs/inferiores/frontais/Leg-Press.gif", nome: "Leg press", descricao: "Carga guiada para pernas." },
+  { src: "gifs/inferiores/frontais/Pin-Squat.gif", nome: "Agachamento com trava", descricao: "Foco em força e segurança." },
+  { src: "gifs/inferiores/frontais/Pistol-Squat-to-Box.gif", nome: "Pistol squat na caixa", descricao: "Versão assistida do agachamento unilateral." },
+  { src: "gifs/inferiores/frontais/Single-Leg-Extension.gif", nome: "Extensão de perna unilateral", descricao: "Corrige desequilíbrios musculares." },
+  { src: "gifs/inferiores/frontais/Single-Leg-Press.gif", nome: "Leg press unilateral", descricao: "Trabalho isolado em cada perna." },
+  { src: "gifs/inferiores/frontais/Single-Leg-Step-Down.gif", nome: "Descida com uma perna", descricao: "Trabalha excêntrico e estabilidade." },
+  { src: "gifs/inferiores/frontais/Smith-Machine-Lunge.gif", nome: "Avanço no smith", descricao: "Guiado para melhor postura." },
+  { src: "gifs/inferiores/frontais/smith-machine-squat.gif", nome: "Agachamento no smith", descricao: "Execução segura e controlada." },
+  { src: "gifs/inferiores/frontais/Standing-leg-extension.gif", nome: "Extensão de perna em pé", descricao: "Foco em quadríceps com controle postural." },
+  { src: "gifs/inferiores/frontais/Static-Lunge.gif", nome: "Avanço estático", descricao: "Trabalha equilíbrio e força." },
+  { src: "gifs/inferiores/frontais/Step-up.gif", nome: "Step com subida", descricao: "Ativa glúteos, quadríceps e core." },
+  { src: "gifs/inferiores/frontais/Sumo-Plie-Dumbbell-Squat.gif", nome: "Agachamento sumô com halteres", descricao: "Abre quadril e ativa parte interna da coxa." },
+  { src: "gifs/inferiores/frontais/zercher-deadlift.gif", nome: "Zercher deadlift", descricao: "Ativa corpo inteiro com foco em posteriores e core." }
+];
+	
+    const ITENS_POR_PAGINA = 10;
+    let paginaAtual = 1;
+
+    function render() {
+      const lista = document.getElementById('lista');
+      const pag = document.getElementById('paginacao');
+
+      lista.innerHTML = '';
+      pag.innerHTML = '';
+
+      const total = exercicios.length;
+      const totalPaginas = Math.ceil(total / ITENS_POR_PAGINA);
+      const start = (paginaAtual - 1) * ITENS_POR_PAGINA;
+      const end = start + ITENS_POR_PAGINA;
+      const itensPagina = exercicios.slice(start, end);
+
+      itensPagina.forEach(e => {
+        const card = document.createElement('div');
+        card.className = 'exercise-card';
+        card.setAttribute('data-src', e.src); // para o modal
+        card.innerHTML = `
+          <img src="${e.src}" alt="${e.nome}">
+          <div class="exercise-info">
+            <h4>${e.nome}</h4>
+            <p>${e.descricao}</p>
+          </div>
+        `;
+        lista.appendChild(card);
+      });
+
+      if (totalPaginas > 1) {
+        const btnPrev = document.createElement('button');
+        btnPrev.textContent = '«';
+        btnPrev.disabled = paginaAtual === 1;
+        btnPrev.onclick = () => { paginaAtual--; render(); };
+        pag.appendChild(btnPrev);
+
+        for (let i = 1; i <= totalPaginas; i++) {
+          const b = document.createElement('button');
+          b.textContent = i;
+          if (i === paginaAtual) b.classList.add('current');
+          b.onclick = () => { paginaAtual = i; render(); };
+          pag.appendChild(b);
+        }
+
+        const btnNext = document.createElement('button');
+        btnNext.textContent = '»';
+        btnNext.disabled = paginaAtual === totalPaginas;
+        btnNext.onclick = () => { paginaAtual++; render(); };
+        pag.appendChild(btnNext);
+      }
+    }
+
+    // --- Modal ---
+    function abrirModalImagem(src) {
+      const modal = document.getElementById('modalImagem');
+      const img = document.getElementById('imagemAmpliada');
+      img.src = src;
+      modal.style.display = 'flex';
+    }
+
+    function fecharModalImagem() {
+      const modal = document.getElementById('modalImagem');
+      const img = document.getElementById('imagemAmpliada');
+      img.src = '';
+      modal.style.display = 'none';
+    }
+
+    // Clique nos cards (delegação)
+    document.addEventListener('click', (e) => {
+      const card = e.target.closest('.exercise-card');
+      if (card) {
+        abrirModalImagem(card.dataset.src);
+      }
+      // Fecha modal clicando fora
+      if (e.target.id === 'modalImagem') {
+        fecharModalImagem();
+      }
+    });
+
+    // Fecha com ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') fecharModalImagem();
+    });
+
+    render();
+  </script>
+</body>
+</html>

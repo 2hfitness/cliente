@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bíceps - Exercícios - 2H.Fitness</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="fundo-fixo"></div>
+
+  <img src="imgs/logo.png" alt="Logo da academia 2H.Fitness" class="logo" />
+  <h1>Bíceps</h1>
+
+  <div id="lista" class="lista-exercicios"></div>
+  <div id="paginacao" class="paginacao"></div>
+
+  <a href="superiores.html" class="btn">← Voltar aos grupos superiores</a>
+  <a href="index.html" class="btn">← Página Inicial</a>
+
+  <!-- Modal -->
+  <div id="modalImagem" class="modal-img" role="dialog" aria-modal="true" aria-label="GIF ampliado">
+    <img id="imagemAmpliada" src="" alt="Exercício ampliado">
+  </div>
+
+  <footer>
+    <p><b>2H.Fitness Ltda</b> - Rua Teodora Barbosa Ribeiro, 367 - Arrozal, Piraí - RJ</p>
+    <p>CNPJ: 61.202.754/0001-19</p>
+    <p>&copy; 2025 - Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    const exercicios = [
+	  { src: "gifs/superiores/biceps/Barbell-Curl.gif", nome: "Rosca direta com barra", descricao: "Foco no bíceps braquial com grande carga e amplitude controlada." },
+	  { src: "gifs/superiores/biceps/Brachialis-Pull-up.gif", nome: "Pull-up para braquial", descricao: "Variação de barra fixa enfatizando o braquial." },
+	  { src: "gifs/superiores/biceps/cable-curl.gif", nome: "Rosca no cabo", descricao: "Tensão constante no bíceps durante todo o movimento." },
+	  { src: "gifs/superiores/biceps/Cable-Incline-Biceps-Curl.gif", nome: "Rosca inclinada no cabo", descricao: "Alongamento máximo com resistência contínua." },
+	  { src: "gifs/superiores/biceps/Cable-Kneeling-Biceps-Curl.gif", nome: "Rosca ajoelhada no cabo", descricao: "Execução focada e isolada do bíceps." },
+	  { src: "gifs/superiores/biceps/Cable-Reverse-Grip-EZ-bar-Biceps-Curl.gif", nome: "Rosca inversa no cabo com barra EZ", descricao: "Foco no braquiorradial e bíceps." },
+	  { src: "gifs/superiores/biceps/cable-single-arm-hammer-curl.gif", nome: "Rosca martelo unilateral no cabo", descricao: "Trabalho alternado do braquial e braquiorradial." },
+	  { src: "gifs/superiores/biceps/Chin-Up.gif", nome: "Chin-up (barra supinada)", descricao: "Puxada com pegada supinada, ativando bíceps e costas." },
+	  { src: "gifs/superiores/biceps/close-grip-barbell-curl.gif", nome: "Rosca com barra pegada fechada", descricao: "Maior foco na cabeça longa do bíceps." },
+	  { src: "gifs/superiores/biceps/Close-Grip-Z-Bar-Curl.gif", nome: "Rosca com barra Z pegada fechada", descricao: "Reduz pressão nos punhos, mantendo foco no bíceps." },
+	  { src: "gifs/superiores/biceps/Concentration-Curl.gif", nome: "Rosca concentrada", descricao: "Isolamento máximo do bíceps com controle total." },
+	  { src: "gifs/superiores/biceps/Dumbbell-Alternate-Preacher-Curl.gif", nome: "Rosca alternada no banco scott", descricao: "Foco na fase negativa e controle." },
+	  { src: "gifs/superiores/biceps/Dumbbell-Curl.gif", nome: "Rosca direta com halteres", descricao: "Trabalho bilateral clássico de bíceps." },
+	  { src: "gifs/superiores/biceps/Dumbbell-Preacher-Hammer-Curl.gif", nome: "Rosca martelo no banco scott", descricao: "Ativa braquial e mantém tensão contínua." },
+	  { src: "gifs/superiores/biceps/dumbbell-reverse-curl.gif", nome: "Rosca inversa com halteres", descricao: "Ênfase nos antebraços e braquiorradial." },
+	  { src: "gifs/superiores/biceps/Dumbbell-Scott-Hammer-Curl.gif", nome: "Rosca martelo no banco scott unilateral", descricao: "Foco no braquial com controle isolado." },
+	  { src: "gifs/superiores/biceps/Flexor-Incline-Dumbbell-Curls.gif", nome: "Rosca inclinada com halteres", descricao: "Grande alongamento da cabeça longa do bíceps." },
+	  { src: "gifs/superiores/biceps/Hammer-Curl.gif", nome: "Rosca martelo", descricao: "Ativa braquial e antebraço com pegada neutra." },
+	  { src: "gifs/superiores/biceps/High-Cable-Single-Arm-Bicep-Curl.gif", nome: "Rosca unilateral alta no cabo", descricao: "Trabalho isolado com contração máxima." },
+	  { src: "gifs/superiores/biceps/One-Arm-Biceps-Curl.gif", nome: "Rosca unilateral com halteres", descricao: "Execução alternada com foco em controle." },
+	  { src: "gifs/superiores/biceps/overhead-cable-curl.gif", nome: "Rosca cabeça alta no crossover", descricao: "Contração máxima com braços abertos." },
+	  { src: "gifs/superiores/biceps/Reverse-Grip-EZ-Bar-Curl.gif", nome: "Rosca inversa com barra EZ", descricao: "Trabalha bíceps e antebraço simultaneamente." },
+	  { src: "gifs/superiores/biceps/rope-bicep-curls.gif", nome: "Rosca com corda no cabo", descricao: "Ativação do bíceps com pegada neutra." },
+	  { src: "gifs/superiores/biceps/seated-biceps-curl.gif", nome: "Rosca bíceps sentada", descricao: "Foco e isolamento do movimento." },
+	  { src: "gifs/superiores/biceps/Seated-dumbbell-alternating-curl.gif", nome: "Rosca alternada sentada com halteres", descricao: "Isolamento com controle postural." },
+	  { src: "gifs/superiores/biceps/Seated-Hammer-Curl.gif", nome: "Rosca martelo sentada", descricao: "Trabalho do bíceps e antebraço com estabilidade." },
+	  { src: "gifs/superiores/biceps/Seated-Incline-Dumbbell-Curl.gif", nome: "Rosca inclinada sentada", descricao: "Amplitude aumentada do bíceps com halteres." },
+	  { src: "gifs/superiores/biceps/Seated-Zottman-Curl.gif", nome: "Rosca Zottman sentada", descricao: "Combina rosca direta e inversa em um só movimento." },
+	  { src: "gifs/superiores/biceps/Z-Bar-Curl.gif", nome: "Rosca direta com barra Z", descricao: "Menor estresse nos punhos com ativação do bíceps." },
+	  { src: "gifs/superiores/biceps/Z-Bar-Preacher-Curl.gif", nome: "Rosca scott com barra Z", descricao: "Isolamento total no banco scott com pegada neutra." }
+	];
+
+
+    const ITENS_POR_PAGINA = 10;
+    let paginaAtual = 1;
+
+    function render() {
+      const lista = document.getElementById('lista');
+      const pag = document.getElementById('paginacao');
+
+      lista.innerHTML = '';
+      pag.innerHTML = '';
+
+      const total = exercicios.length;
+      const totalPaginas = Math.ceil(total / ITENS_POR_PAGINA);
+      const start = (paginaAtual - 1) * ITENS_POR_PAGINA;
+      const end = start + ITENS_POR_PAGINA;
+      const itensPagina = exercicios.slice(start, end);
+
+      itensPagina.forEach(e => {
+        const card = document.createElement('div');
+        card.className = 'exercise-card';
+        card.setAttribute('data-src', e.src);
+        card.innerHTML = `
+          <img src="${e.src}" alt="${e.nome}">
+          <div class="exercise-info">
+            <h4>${e.nome}</h4>
+            <p>${e.descricao}</p>
+          </div>
+        `;
+        lista.appendChild(card);
+      });
+
+      if (totalPaginas > 1) {
+        const btnPrev = document.createElement('button');
+        btnPrev.textContent = '«';
+        btnPrev.disabled = paginaAtual === 1;
+        btnPrev.onclick = () => { paginaAtual--; render(); };
+        pag.appendChild(btnPrev);
+
+        for (let i = 1; i <= totalPaginas; i++) {
+          const b = document.createElement('button');
+          b.textContent = i;
+          if (i === paginaAtual) b.classList.add('current');
+          b.onclick = () => { paginaAtual = i; render(); };
+          pag.appendChild(b);
+        }
+
+        const btnNext = document.createElement('button');
+        btnNext.textContent = '»';
+        btnNext.disabled = paginaAtual === totalPaginas;
+        btnNext.onclick = () => { paginaAtual++; render(); };
+        pag.appendChild(btnNext);
+      }
+    }
+
+    function abrirModalImagem(src) {
+      document.getElementById('imagemAmpliada').src = src;
+      document.getElementById('modalImagem').style.display = 'flex';
+    }
+
+    function fecharModalImagem() {
+      document.getElementById('imagemAmpliada').src = '';
+      document.getElementById('modalImagem').style.display = 'none';
+    }
+
+    document.addEventListener('click', (e) => {
+      const card = e.target.closest('.exercise-card');
+      if (card) abrirModalImagem(card.dataset.src);
+      if (e.target.id === 'modalImagem') fecharModalImagem();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') fecharModalImagem();
+    });
+
+    render();
+  </script>
+</body>
+</html>

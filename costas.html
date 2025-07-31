@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Costas - Exercícios - 2H.Fitness</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="fundo-fixo"></div>
+
+  <img src="imgs/logo.png" alt="Logo da academia 2H.Fitness" class="logo" />
+  <h1>Costas</h1>
+
+  <div id="lista" class="lista-exercicios"></div>
+  <div id="paginacao" class="paginacao"></div>
+
+  <a href="superiores.html" class="btn">← Voltar aos grupos superiores</a>
+  <a href="index.html" class="btn">← Página Inicial</a>
+
+  <!-- Modal -->
+  <div id="modalImagem" class="modal-img" role="dialog" aria-modal="true" aria-label="GIF ampliado">
+    <img id="imagemAmpliada" src="" alt="Exercício ampliado">
+  </div>
+
+  <footer>
+    <p><b>2H.Fitness Ltda</b> - Rua Teodora Barbosa Ribeiro, 367 - Arrozal, Piraí - RJ</p>
+    <p>CNPJ: 61.202.754/0001-19</p>
+    <p>&copy; 2025 - Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    const exercicios = [
+      { src: "gifs/superiores/costas/Barbell-Bent-Arm-Pullover.gif", nome: "Pullover com barra braços flexionados", descricao: "Movimento para costas e peitoral com barra e braços semiflexionados." },
+      { src: "gifs/superiores/costas/Barbell-Bent-Over-Row.gif", nome: "Remada curvada com barra", descricao: "Exercício básico para dorsais, lombar e bíceps." },
+      { src: "gifs/superiores/costas/Barbell-Decline-Bent-Arm-Pullover.gif", nome: "Pullover com barra em banco declinado", descricao: "Pullover com ênfase maior no peitoral e dorsais." },
+      { src: "gifs/superiores/costas/Barbell-Pendlay-Row.gif", nome: "Remada Pendlay", descricao: "Remada explosiva com barra partindo do chão." },
+      { src: "gifs/superiores/costas/Battle-Rope.gif", nome: "Corda naval", descricao: "Exercício funcional para costas, ombros e condicionamento." },
+      { src: "gifs/superiores/costas/Bent-Over-Dumbbell-Row.gif", nome: "Remada curvada com halteres", descricao: "Trabalha dorsais, trapézio e bíceps." },
+      { src: "gifs/superiores/costas/Cable-Bent-Over-Row.gif", nome: "Remada curvada no cabo", descricao: "Variante de remada para costas usando polia." },
+      { src: "gifs/superiores/costas/Cable-Crossover-Lat-Pulldown.gif", nome: "Puxada cruzada no cabo", descricao: "Ativa dorsais e ombros com cabos cruzados." },
+      { src: "gifs/superiores/costas/Cable-One-Arm-Lat-Pulldown.gif", nome: "Puxada unilateral no cabo", descricao: "Movimento isolado para dorsais." },
+      { src: "gifs/superiores/costas/Cable-One-Arm-Pulldown.gif", nome: "Pulldown unilateral no cabo", descricao: "Enfoque unilateral nos dorsais." },
+      { src: "gifs/superiores/costas/Cable-Seated-Pullover.gif", nome: "Pullover no cabo sentado", descricao: "Pullover com foco no latíssimo do dorso." },
+      { src: "gifs/superiores/costas/Cable-Straight-Arm-Pulldown.gif", nome: "Pulldown com braço estendido", descricao: "Isolamento dos dorsais com polia alta." },
+      { src: "gifs/superiores/costas/Cable-Twisting-Standing-high-Row.gif", nome: "Remada alta em pé com rotação", descricao: "Trabalha dorsais e deltoides posteriores." },
+      { src: "gifs/superiores/costas/Chin-Up.gif", nome: "Barra fixa (pegada supinada)", descricao: "Exercício clássico para dorsais e bíceps." },
+      { src: "gifs/superiores/costas/close-grip-cable-row.gif", nome: "Remada no cabo pegada fechada", descricao: "Trabalha dorsais e trapézio." },
+      { src: "gifs/superiores/costas/Close-Grip-Chin-Up.gif", nome: "Barra fixa pegada fechada", descricao: "Variação da barra fixa com foco nos bíceps e dorsais." },
+      { src: "gifs/superiores/costas/Close-Grip-Lat-Pulldown.gif", nome: "Puxada frente pegada fechada", descricao: "Puxada para dorsais com foco na parte interna." },
+      { src: "gifs/superiores/costas/Dumbbell-Bent-Over-Reverse-Row.gif", nome: "Remada curvada inversa com halteres", descricao: "Trabalha dorsais e deltoides posteriores." },
+      { src: "gifs/superiores/costas/Dumbbell-Row.gif", nome: "Remada com halter", descricao: "Exercício unilateral para dorsais e bíceps." },
+      { src: "gifs/superiores/costas/EZ-Bar-Bent-Arm-Pullover.gif", nome: "Pullover com barra EZ", descricao: "Pullover para dorsais e peitoral." },
+      { src: "gifs/superiores/costas/Full-Range-Of-Motion-Lat-Pulldown.gif", nome: "Puxada frente amplitude total", descricao: "Trabalha todo o movimento dos dorsais." },
+      { src: "gifs/superiores/costas/Half-Kneeling-Lat-Pulldown.gif", nome: "Puxada frente meio ajoelhado", descricao: "Variação unilateral de puxada para costas." },
+      { src: "gifs/superiores/costas/Incline-Cable-Row.gif", nome: "Remada inclinada no cabo", descricao: "Trabalha dorsais com ângulo diferenciado." },
+      { src: "gifs/superiores/costas/Incline-Dumbbell-Hammer-Row.gif", nome: "Remada hammer com halteres inclinada", descricao: "Variação para dorsais e trapézio." },
+      { src: "gifs/superiores/costas/Incline-Reverse-Grip-Dumbbell-Row.gif", nome: "Remada inclinada pegada reversa", descricao: "Ênfase nos dorsais superiores e bíceps." },
+      { src: "gifs/superiores/costas/Kneeling-High-Pulley-Row.gif", nome: "Remada alta ajoelhada", descricao: "Trabalha dorsais e lombar." },
+      { src: "gifs/superiores/costas/Kneeling-pulldown.gif", nome: "Pulldown ajoelhado", descricao: "Puxada frontal em posição ajoelhada." },
+      { src: "gifs/superiores/costas/Kneeling-Single-Arm-High-Pulley-Row.gif", nome: "Remada alta unilateral ajoelhada", descricao: "Movimento unilateral para dorsais." },
+      { src: "gifs/superiores/costas/Lat-Pulldown.gif", nome: "Puxada frente", descricao: "Exercício clássico para dorsais." },
+      { src: "gifs/superiores/costas/Lever-T-bar-Row.gif", nome: "Remada T-bar máquina", descricao: "Remada com pegada neutra em máquina." },
+      { src: "gifs/superiores/costas/L-Pull-Up.gif", nome: "Barra fixa em L", descricao: "Barra fixa com elevação de pernas, trabalhando core e dorsais." },
+      { src: "gifs/superiores/costas/Lying-Extension-Pullover.gif", nome: "Pullover extensão deitado", descricao: "Pullover com foco em dorsais e peitoral." },
+      { src: "gifs/superiores/costas/Pull-up.gif", nome: "Barra fixa", descricao: "Exercício completo para costas, bíceps e core." },
+      { src: "gifs/superiores/costas/Reverse-Grip-Barbell-Row.gif", nome: "Remada com barra pegada invertida", descricao: "Foco em dorsais e bíceps com pegada supinada." },
+      { src: "gifs/superiores/costas/Reverse-Lat-Pulldown.gif", nome: "Puxada frente pegada reversa", descricao: "Ênfase nos bíceps e dorsais internos." },
+      { src: "gifs/superiores/costas/Rope-Straight-Arm-Pulldown.gif", nome: "Pulldown braço estendido com corda", descricao: "Isolamento dos dorsais com corda." },
+      { src: "gifs/superiores/costas/Seated-Cable-Rope-Row.gif", nome: "Remada sentada com corda", descricao: "Trabalha dorsais e deltoides posteriores." },
+      { src: "gifs/superiores/costas/Seated-Cable-Row.gif", nome: "Remada sentada", descricao: "Exercício clássico para dorsais e trapézio." },
+      { src: "gifs/superiores/costas/shotgun-row.gif", nome: "Remada shotgun", descricao: "Variação inclinada com barra." },
+      { src: "gifs/superiores/costas/Smith-Machine-Bent-Over-Row.gif", nome: "Remada curvada no smith", descricao: "Remada guiada para dorsais." },
+      { src: "gifs/superiores/costas/V-bar-Lat-Pulldown.gif", nome: "Puxada frente com barra V", descricao: "Puxada pegada neutra para dorsais." }
+    ];
+
+    const ITENS_POR_PAGINA = 10;
+    let paginaAtual = 1;
+
+    function render() {
+      const lista = document.getElementById('lista');
+      const pag = document.getElementById('paginacao');
+
+      lista.innerHTML = '';
+      pag.innerHTML = '';
+
+      const total = exercicios.length;
+      const totalPaginas = Math.ceil(total / ITENS_POR_PAGINA);
+      const start = (paginaAtual - 1) * ITENS_POR_PAGINA;
+      const end = start + ITENS_POR_PAGINA;
+      const itensPagina = exercicios.slice(start, end);
+
+      itensPagina.forEach(e => {
+        const card = document.createElement('div');
+        card.className = 'exercise-card';
+        card.setAttribute('data-src', e.src);
+        card.innerHTML = `
+          <img src="${e.src}" alt="${e.nome}">
+          <div class="exercise-info">
+            <h4>${e.nome}</h4>
+            <p>${e.descricao}</p>
+          </div>
+        `;
+        lista.appendChild(card);
+      });
+
+      if (totalPaginas > 1) {
+        const btnPrev = document.createElement('button');
+        btnPrev.textContent = '«';
+        btnPrev.disabled = paginaAtual === 1;
+        btnPrev.onclick = () => { paginaAtual--; render(); };
+        pag.appendChild(btnPrev);
+
+        for (let i = 1; i <= totalPaginas; i++) {
+          const b = document.createElement('button');
+          b.textContent = i;
+          if (i === paginaAtual) b.classList.add('current');
+          b.onclick = () => { paginaAtual = i; render(); };
+          pag.appendChild(b);
+        }
+
+        const btnNext = document.createElement('button');
+        btnNext.textContent = '»';
+        btnNext.disabled = paginaAtual === totalPaginas;
+        btnNext.onclick = () => { paginaAtual++; render(); };
+        pag.appendChild(btnNext);
+      }
+    }
+
+    function abrirModalImagem(src) {
+      document.getElementById('imagemAmpliada').src = src;
+      document.getElementById('modalImagem').style.display = 'flex';
+    }
+
+    function fecharModalImagem() {
+      document.getElementById('imagemAmpliada').src = '';
+      document.getElementById('modalImagem').style.display = 'none';
+    }
+
+    document.addEventListener('click', (e) => {
+      const card = e.target.closest('.exercise-card');
+      if (card) abrirModalImagem(card.dataset.src);
+      if (e.target.id === 'modalImagem') fecharModalImagem();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') fecharModalImagem();
+    });
+
+    render();
+  </script>
+</body>
+</html>

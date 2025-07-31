@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cardio - Exercícios - 2H.Fitness</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="fundo-fixo"></div>
+
+  <img src="imgs/logo.png" alt="Logo da academia 2H.Fitness" class="logo" />
+  <h1>Cardio</h1>
+
+  <div id="lista" class="lista-exercicios"></div>
+  <div id="paginacao" class="paginacao"></div>
+
+  <a href="exercicios.html" class="btn">← Voltar para Exercícios</a>
+  <a href="index.html" class="btn">← Página Inicial</a>
+
+  <!-- Modal para imagem ampliada -->
+  <div id="modalImagem" class="modal-img" role="dialog" aria-modal="true" aria-label="GIF ampliado">
+    <img id="imagemAmpliada" src="" alt="Exercício ampliado">
+  </div>
+
+  <footer>
+    <p><b>2H.Fitness Ltda</b> - Rua Teodora Barbosa Ribeiro, 367 - Arrozal, Piraí - RJ</p>
+    <p>CNPJ: 61.202.754/0001-19</p>
+    <p>&copy; 2025 - Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+	const exercicios = [
+	  { src: "gifs/cardio/1-2-Stick-Drill-Plyometrics.gif", nome: "Drill 1-2 com variação pliométrica", descricao: "Melhora agilidade e coordenação." },
+	  { src: "gifs/cardio/Bear-Crawl.gif", nome: "Deslocamento em urso (Bear Crawl)", descricao: "Exercício funcional que ativa core e membros." },
+	  { src: "gifs/cardio/Bike.gif", nome: "Bicicleta ergométrica", descricao: "Exercício cardiovascular de baixo impacto." },
+	  { src: "gifs/cardio/bodyweight-squat-full-version.gif", nome: "Agachamento livre completo", descricao: "Trabalha pernas com foco cardiovascular." },
+	  { src: "gifs/cardio/Boxer-Shuffle-Cardio.gif", nome: "Passo de boxeador", descricao: "Ativa parte inferior com alto gasto calórico." },
+	  { src: "gifs/cardio/burpees.gif", nome: "Burpees", descricao: "Exercício intenso para corpo inteiro e condicionamento." },
+	  { src: "gifs/cardio/Cross-Body-Push-up_Plyometric.gif", nome: "Flexão cruzada pliométrica", descricao: "Ativa peito, core e melhora explosão." },
+	  { src: "gifs/cardio/Curtsey-Squat.gif", nome: "Agachamento reverência", descricao: "Foco em glúteos e parte interna da coxa." },
+	  { src: "gifs/cardio/Elbow-To-Knee-Twists.gif", nome: "Toque cotovelo-joelho alternado", descricao: "Trabalha abdômen e mobilidade." },
+	  { src: "gifs/cardio/Elliptical-Machine.gif", nome: "Elíptico", descricao: "Exercício aeróbico de baixo impacto." },
+	  { src: "gifs/cardio/Fast-Feet-Run.gif", nome: "Corrida com pés rápidos", descricao: "Melhora reflexo e velocidade." },
+	  { src: "gifs/cardio/Front-Plank-With-Arm-And-Leg-Lift.gif", nome: "Prancha com elevação de braço e perna", descricao: "Desafia o core com instabilidade." },
+	  { src: "gifs/cardio/High-Knee-Run.gif", nome: "Corrida com joelho alto", descricao: "Aumenta frequência cardíaca com foco em pernas." },
+	  { src: "gifs/cardio/High-Knees-against-wall.gif", nome: "Joelhos altos na parede", descricao: "Exercício estático para ativação intensa." },
+	  { src: "gifs/cardio/High-Knee-Skips_Cardio.gif", nome: "Saltos com joelhos altos", descricao: "Trabalho aeróbico e coordenação." },
+	  { src: "gifs/cardio/High-Knee-Squat.gif", nome: "Agachamento com joelho alto", descricao: "Combina força e cardio em uma série." },
+	  { src: "gifs/cardio/Jack-Burpees.gif", nome: "Burpee com salto lateral", descricao: "Intensifica o estímulo cardiovascular." },
+	  { src: "gifs/cardio/Jumping-jack.gif", nome: "Polichinelo", descricao: "Clássico aeróbico de corpo inteiro." },
+	  { src: "gifs/cardio/Jump-Squat.gif", nome: "Agachamento com salto", descricao: "Potencializa força e resistência." },
+	  { src: "gifs/cardio/Lateral-Speed-Step.gif", nome: "Passo lateral rápido", descricao: "Trabalha agilidade e controle lateral." },
+	  { src: "gifs/cardio/Long-Jump-Plyometrics.gif", nome: "Salto horizontal", descricao: "Potência de membros inferiores." },
+	  { src: "gifs/cardio/Mountain-climber.gif", nome: "Escalador", descricao: "Intenso exercício cardiovascular e abdominal." },
+	  { src: "gifs/cardio/Navy-Seal-Burpee.gif", nome: "Burpee Navy Seal", descricao: "Versão avançada do burpee." },
+	  { src: "gifs/cardio/Plyo-Jacks.gif", nome: "Polichinelo pliométrico", descricao: "Aumenta intensidade e força explosiva." },
+	  { src: "gifs/cardio/power-lunge.gif", nome: "Avanço com salto", descricao: "Coordenação, força e cardio em um só exercício." },
+	  { src: "gifs/cardio/Power-Skips.gif", nome: "Saltos poderosos alternados", descricao: "Exercício dinâmico para membros inferiores." },
+	  { src: "gifs/cardio/Push-up-Toe-Touch.gif", nome: "Flexão com toque nos pés", descricao: "Combina peito, core e mobilidade." },
+	  { src: "gifs/cardio/Side-Shuttle.gif", nome: "Deslocamento lateral rápido", descricao: "Trabalho de pés e agilidade lateral." },
+	  { src: "gifs/cardio/Skip-Jump-Rope.gif", nome: "Pular corda", descricao: "Clássico do cardio para resistência geral." },
+	  { src: "gifs/cardio/SNAP-JUMPS.gif", nome: "Saltos snap", descricao: "Exercício de impacto e explosão muscular." },
+	  { src: "gifs/cardio/Spider-Plank.gif", nome: "Prancha aranha", descricao: "Desafio de core com mobilidade de quadril." },
+	  { src: "gifs/cardio/Split-Jacks.gif", nome: "Polichinelo alternado", descricao: "Movimento intenso de cardio com coordenação." },
+	  { src: "gifs/cardio/Step-up.gif", nome: "Subida em banco ou degrau", descricao: "Exercício funcional e aeróbico." },
+	  { src: "gifs/cardio/Step-Up-Opposite-Elbow-to-Knee-Twist.gif", nome: "Subida com rotação cotovelo-joelho", descricao: "Trabalha abdômen e equilíbrio." },
+	  { src: "gifs/cardio/T-Cross-Sit-up.gif", nome: "Abdominal cruzado em T", descricao: "Desafio abdominal com mobilidade." },
+	  { src: "gifs/cardio/Treadmill.gif", nome: "Esteira", descricao: "Cardio contínuo de intensidade controlada." },
+	  { src: "gifs/cardio/Walking-High-Knee-Lunges.gif", nome: "Passada com joelhos altos andando", descricao: "Coordenação e esforço cardiovascular." },
+	  { src: "gifs/cardio/Zig-Zag-Hops-Plyometric.gif", nome: "Saltos em zigue-zague", descricao: "Treino de agilidade e pliometria lateral." }
+	];
+
+    const ITENS_POR_PAGINA = 10;
+    let paginaAtual = 1;
+
+    function render() {
+      const lista = document.getElementById('lista');
+      const pag = document.getElementById('paginacao');
+
+      lista.innerHTML = '';
+      pag.innerHTML = '';
+
+      const total = exercicios.length;
+      const totalPaginas = Math.ceil(total / ITENS_POR_PAGINA);
+      const start = (paginaAtual - 1) * ITENS_POR_PAGINA;
+      const end = start + ITENS_POR_PAGINA;
+      const itensPagina = exercicios.slice(start, end);
+
+      itensPagina.forEach(e => {
+        const card = document.createElement('div');
+        card.className = 'exercise-card';
+        card.setAttribute('data-src', e.src); // para o modal
+        card.innerHTML = `
+          <img src="${e.src}" alt="${e.nome}">
+          <div class="exercise-info">
+            <h4>${e.nome}</h4>
+            <p>${e.descricao}</p>
+          </div>
+        `;
+        lista.appendChild(card);
+      });
+
+      if (totalPaginas > 1) {
+        const btnPrev = document.createElement('button');
+        btnPrev.textContent = '«';
+        btnPrev.disabled = paginaAtual === 1;
+        btnPrev.onclick = () => { paginaAtual--; render(); };
+        pag.appendChild(btnPrev);
+
+        for (let i = 1; i <= totalPaginas; i++) {
+          const b = document.createElement('button');
+          b.textContent = i;
+          if (i === paginaAtual) b.classList.add('current');
+          b.onclick = () => { paginaAtual = i; render(); };
+          pag.appendChild(b);
+        }
+
+        const btnNext = document.createElement('button');
+        btnNext.textContent = '»';
+        btnNext.disabled = paginaAtual === totalPaginas;
+        btnNext.onclick = () => { paginaAtual++; render(); };
+        pag.appendChild(btnNext);
+      }
+    }
+
+    // --- Modal ---
+    function abrirModalImagem(src) {
+      const modal = document.getElementById('modalImagem');
+      const img = document.getElementById('imagemAmpliada');
+      img.src = src;
+      modal.style.display = 'flex';
+    }
+
+    function fecharModalImagem() {
+      const modal = document.getElementById('modalImagem');
+      const img = document.getElementById('imagemAmpliada');
+      img.src = '';
+      modal.style.display = 'none';
+    }
+
+    // Clique nos cards (delegação)
+    document.addEventListener('click', (e) => {
+      const card = e.target.closest('.exercise-card');
+      if (card) {
+        abrirModalImagem(card.dataset.src);
+      }
+      // Fecha modal clicando fora
+      if (e.target.id === 'modalImagem') {
+        fecharModalImagem();
+      }
+    });
+
+    // Fecha com ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') fecharModalImagem();
+    });
+
+    render();
+  </script>
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Academia 2H.Fitness - Transforme seu corpo e sua vida com nossos planos acessíveis.">
+  <meta name="keywords" content="academia, fitness, 2h, Piraí, treino, saúde">
+  <meta name="author" content="2H.Fitness Ltda">
+  <title>2h.Fitness - Cartão de Visita</title>
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Ícones para atalho e favicon -->
+  <link rel="icon" href="icon-192.png" sizes="192x192" type="image/png">
+  <link rel="apple-touch-icon" sizes="180x180" href="icon-180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#000000">
+</head>
+
+<body>
+  <button class="menu-toggle" onclick="abrirMenu()">☰</button>
+  <div class="fundo-fixo"></div>
+
+  <img src="imgs/logo.png" alt="Logo da academia 2H.Fitness" class="logo" />
+  <h1>Transforme seu corpo,<br>transforme sua vida.</h1>
+
+  <a href="https://www.instagram.com/2h_fitness" class="btn" onclick="if (menuAberto()) return false;" target="_blank">Instagram</a>
+
+  <div class="qr-container">
+    <p id="msgPix"></p>
+    <span id="pixNumero">90349174-bd4e-4791-9580-ef12d35f621d</span>
+  </div>
+
+  <a href="#" class="btn" onclick="abrirMapa()">Localização</a>
+  <div id="modalMapa" class="modal">
+    <div class="modal-content">
+      <h1>Localização</h1>
+      <iframe id="meuMapa"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675.628287102922!2d-43.88118462572556!3d-22.89169013785696!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9970bc2906ebf7%3A0x8c0628dc72a87d26!2sR.%20Teodora%20Barbosa%20Ribeiro%2C%20367%20-%20Arrozal%2C%20Pira%C3%AD%20-%20RJ%2C%2027185-000!5e0!3m2!1spt-BR!2sbr!4v1718797795602!5m2!1spt-BR!2sbr
+        allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa da academia 2H.Fitness"
+        style="width:100%; height:300px; border-radius: 12px; border: none;">
+      </iframe>
+      <button class="btn" onclick="fecharMapa()">Fechar</button>
+    </div>
+  </div>
+
+  <div id="modalMatricula" class="modal">
+    <div class="modal-content">
+      <h1>Matrícula</h1>
+      <input type="text" placeholder="Nome Completo" id="nome" required>
+      <input type="text" placeholder="CPF" id="cpf" maxlength="14" required oninput="formatarCPF(this)">
+      <input type="tel" placeholder="Celular" id="celular" maxlength="15" required oninput="formatarCelular(this)">
+      <input type="date" id="dataNascimento" required>
+      <input type="email" placeholder="Email" id="email" required>
+      <select id="genero" required>
+        <option value="">Selecione o Gênero</option>
+        <option value="Masculino">Masculino</option>
+        <option value="Feminino">Feminino</option>
+      </select>
+      <button class="btn" onclick="mostrarPlano()">Continuar</button>
+    </div>
+  </div>
+
+  <div id="modalPlano" class="modal">
+    <div class="modal-content">
+      <h1>Escolha seu Plano</h1>
+      <button class="btn" onclick="mostrarQRCode('80')">Plano Mensal - R$80,00</button>
+      <button class="btn" onclick="mostrarQRCode('65')">Plano (3x por semana) - R$65,00</button>
+      <button class="btn" onclick="fecharModais()">Voltar</button>
+
+      <div id="qrcodeContainer" style="margin-top: 20px; display: none;">
+        <p style="margin: 10px 0; font-size: 1em;">Use o QR Code para pagamento:</p>
+        <img id="qrCodeImagem" src="" alt="QR Code do Plano" class="qr-code-img" loading="lazy">
+        <button class="btn" id="copiarCodigoPix" onclick="copiarCodigoPix()">Copiar QR Code</button>
+        <button class="btn" style="margin-top: 20px;" onclick="enviarPlanoWhatsApp()">Enviar dados pelo WHATSAPP</button>
+        <p style="font-size: 0.9em; margin-top: 10px;">ENVIAR COMPROVANTE DE PAGAMENTO NO WHATSAPP</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="modalRenovacao" class="modal">
+    <div class="modal-content">
+      <h1>Renovação</h1>
+      <input type="text" placeholder="Nome Completo" id="nomeRenovacao" required>
+      <button class="btn" onclick="mostrarPlanoRenovacao()">Continuar</button>
+    </div>
+  </div>
+
+  <a href="exercicios.html" class="btn" onclick="if (menuAberto()) return false;">Exercícios</a>
+
+  <div id="modalIMC" class="modal">
+    <div class="modal-content" style="max-width: 500px;">
+      <h1>Descubra seu IMC e Peso Ideal</h1>
+
+      <button class="btn" onclick="mostrarFormulario('masculino')">Masculino</button>
+      <div id="form-masculino" style="display:none; margin-bottom: 20px;">
+        <div style="display: flex; gap: 10px;">
+          <input type="number" id="altura-masc" placeholder="ex: 170cm" style="flex:1;">
+          <input type="number" id="peso-masc" placeholder="ex: 65kg" style="flex:1;">
+        </div>
+        <div id="resultado-masc" style="margin-top: 10px; color: #aed61e;"></div>
+      </div>
+
+      <button class="btn" onclick="mostrarFormulario('feminino')">Feminino</button>
+      <div id="form-feminino" style="display:none; margin-bottom: 20px;">
+        <div style="display: flex; gap: 10px;">
+          <input type="number" id="altura-fem" placeholder="ex: 170cm" style="flex:1;">
+          <input type="number" id="peso-fem" placeholder="ex: 65kg" style="flex:1;">
+        </div>
+        <div id="resultado-fem" style="margin-top: 10px; color: #aed61e;"></div>
+      </div>
+
+      <button class="btn" onclick="calcularIMCePesoIdeal()">Confirmar</button>
+      <button class="btn" style="margin-top: 20px;" onclick="fecharModalIMC()">Fechar</button>
+    </div>
+  </div>
+
+  <section class="horarios">
+    <h3>Horário de funcionamento:</h3>
+    <p><b>Segunda a Sexta:</b><br>5h às 12h | 14h às 21h</p>
+    <p><b>Sábado:</b><br>8h30 às 14h</p>
+  </section>
+
+  <section class="app-download">
+    <h3>Baixe nosso app:</h3>
+    <div class="app-links">
+      <a href="https://play.google.com/store/apps/details?id=br.com.fitastic.appaluno" target="_blank">
+        <img src="imgs/playstore.png" alt="Baixar na Google Play" class="store-btn" loading="lazy" />
+      </a>
+      <a href="https://apps.apple.com/br/app/next-fit/id1360859531" target="_blank">
+        <img src="imgs/appstore.png" alt="Baixar na App Store" class="store-btn" loading="lazy" />
+      </a>
+    </div>
+  </section>
+
+  <section class="servico-container">
+    <h1>Nosso espaço:</h1>
+    <div class="carousel">
+      <button class="arrow arrow-left">&#10094;</button>
+      <div class="carousel-images" id="carouselImages">
+        <img src="fotos/img1.jpeg" alt="Espaço da academia 1" loading="lazy">
+        <img src="fotos/img2.jpeg" alt="Espaço da academia 2" loading="lazy">
+        <img src="fotos/img3.jpeg" alt="Espaço da academia 3" loading="lazy">
+        <img src="fotos/img4.jpeg" alt="Espaço da academia 4" loading="lazy">
+        <img src="fotos/img5.jpeg" alt="Espaço da academia 5" loading="lazy">
+      </div>
+      <button class="arrow arrow-right">&#10095;</button>
+
+      <div class="carousel-dots" id="carouselDots">
+        <span class="active"></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </section>
+
+  <div id="menuLateral" class="menu-lateral">
+    <button class="close-btn" onclick="fecharMenu()">×</button>
+	<img src="imgs/logo.png" alt="Logo pequena" class="logo-menu">
+    <a href="#" onclick="fecharMenu(); fecharTodosModais(); abrirMatricula()">Faça sua matrícula</a>
+	<a href="#" onclick="fecharMenu(); fecharTodosModais(); abrirRenovacao()">Renove sua matrícula</a>
+	<a href="#" onclick="fecharMenu(); fecharTodosModais(); abrirModalIMC()">Calcular Peso Ideal</a>
+	<a href="#" onclick="fecharMenu(); fecharTodosModais(); copiarPix()">Copiar chave Pix</a>
+  </div>
+
+
+  <footer>
+    <p><b>2H.Fitness Ltda</b> - Rua Teodora Barbosa Ribeiro, 367 - Arrozal, Piraí - RJ</p>
+    <p>CNPJ: 61.202.754/0001-19</p>
+    <p>&copy; 2025 - Todos os direitos reservados.</p>
+  </footer>
+
+  <script src="script.js" defer></script>
+
+  <script>
+    document.addEventListener("contextmenu", e => e.preventDefault());
+    document.addEventListener("DOMContentLoaded", () => {
+      document.body.style.userSelect = "none";
+      document.body.style.webkitUserSelect = "none";
+      document.body.style.msUserSelect = "none";
+    });
+    document.addEventListener("keydown", function(e) {
+      if (
+        (e.ctrlKey && (e.key === 'u' || e.key === 'U')) ||
+        (e.key === 'F12') ||
+        (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+        (e.ctrlKey && e.shiftKey && e.key === 'J')
+      ) {
+        e.preventDefault();
+      }
+    });
+  </script>
+  
+</body>
+</html>

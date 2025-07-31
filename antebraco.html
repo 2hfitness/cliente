@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Antebraços - Exercícios - 2H.Fitness</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="fundo-fixo"></div>
+
+  <img src="imgs/logo.png" alt="Logo da academia 2H.Fitness" class="logo" />
+  <h1>Antebraços</h1>
+
+  <div id="lista" class="lista-exercicios"></div>
+  <div id="paginacao" class="paginacao"></div>
+
+  <a href="superiores.html" class="btn">← Voltar aos grupos superiores</a>
+  <a href="index.html" class="btn">← Página Inicial</a>
+
+  <!-- Modal para imagem ampliada -->
+  <div id="modalImagem" class="modal-img" role="dialog" aria-modal="true" aria-label="GIF ampliado">
+    <img id="imagemAmpliada" src="" alt="Exercício ampliado">
+  </div>
+
+  <footer>
+    <p><b>2H.Fitness Ltda</b> - Rua Teodora Barbosa Ribeiro, 367 - Arrozal, Piraí - RJ</p>
+    <p>CNPJ: 61.202.754/0001-19</p>
+    <p>&copy; 2025 - Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    const exercicios = [
+	  { src: "gifs/superiores/antebraco/Barbell-Reverse-Curl.gif", nome: "Rosca inversa com barra", descricao: "Fortalece o braquiorradial e antebraços, com foco na pegada pronada." },
+	  { src: "gifs/superiores/antebraco/Barbell-Reverse-Wrist-Curl.gif", nome: "Extensão de punho com barra", descricao: "Isola os extensores dos antebraços." },
+	  { src: "gifs/superiores/antebraco/barbell-Wrist-Curl.gif", nome: "Flexão de punho com barra", descricao: "Trabalha os músculos flexores do antebraço." },
+	  { src: "gifs/superiores/antebraco/Cable-One-Arm-Wrist-Curl-On-Floor.gif", nome: "Rosca de punho no cabo unilateral", descricao: "Ativação controlada dos flexores com resistência constante." },
+	  { src: "gifs/superiores/antebraco/Cable-Reverse-Grip-EZ-bar-Biceps-Curl.gif", nome: "Rosca inversa EZ no cabo", descricao: "Trabalha braquiorradial com tensão contínua." },
+	  { src: "gifs/superiores/antebraco/cable-single-arm-hammer-curl.gif", nome: "Rosca martelo unilateral no cabo", descricao: "Foco no antebraço e braquial com pegada neutra." },
+	  { src: "gifs/superiores/antebraco/Dumbbell-Preacher-Hammer-Curl.gif", nome: "Rosca martelo no banco scott", descricao: "Isola o braquiorradial com controle postural." },
+	  { src: "gifs/superiores/antebraco/dumbbell-reverse-curl.gif", nome: "Rosca inversa com halteres", descricao: "Ênfase no antebraço e no controle do movimento." },
+	  { src: "gifs/superiores/antebraco/Dumbbell-Scott-Hammer-Curl.gif", nome: "Rosca martelo no banco scott", descricao: "Execução unilateral com foco no antebraço." },
+	  { src: "gifs/superiores/antebraco/Dumbbell-Seated-Neutral-Wrist-Curl.gif", nome: "Flexão neutra de punho com halteres", descricao: "Ativa flexores de forma isolada e controlada." },
+	  { src: "gifs/superiores/antebraco/Dumbbell-Wrist-Curl.gif", nome: "Flexão de punho com halteres", descricao: "Trabalha a parte inferior dos antebraços." },
+	  { src: "gifs/superiores/antebraco/Hand-Gripper.gif", nome: "Fortalecimento com hand gripper", descricao: "Aumenta força de pegada e resistência nos dedos." },
+	  { src: "gifs/superiores/antebraco/Reverse-Grip-EZ-Bar-Curl.gif", nome: "Rosca inversa com barra EZ", descricao: "Foco no antebraço e braquiorradial com conforto para os punhos." },
+	  { src: "gifs/superiores/antebraco/Seated-Hammer-Curl.gif", nome: "Rosca martelo sentada", descricao: "Estabilidade e foco no trabalho dos antebraços." },
+	  { src: "gifs/superiores/antebraco/Seated-Zottman-Curl.gif", nome: "Rosca Zottman sentada", descricao: "Combina rosca direta e inversa em um único exercício." }
+	];
+
+
+    const ITENS_POR_PAGINA = 10;
+    let paginaAtual = 1;
+
+    function render() {
+      const lista = document.getElementById('lista');
+      const pag = document.getElementById('paginacao');
+
+      lista.innerHTML = '';
+      pag.innerHTML = '';
+
+      const total = exercicios.length;
+      const totalPaginas = Math.ceil(total / ITENS_POR_PAGINA);
+      const start = (paginaAtual - 1) * ITENS_POR_PAGINA;
+      const end = start + ITENS_POR_PAGINA;
+      const itensPagina = exercicios.slice(start, end);
+
+      itensPagina.forEach(e => {
+        const card = document.createElement('div');
+        card.className = 'exercise-card';
+        card.setAttribute('data-src', e.src); // para o modal
+        card.innerHTML = `
+          <img src="${e.src}" alt="${e.nome}">
+          <div class="exercise-info">
+            <h4>${e.nome}</h4>
+            <p>${e.descricao}</p>
+          </div>
+        `;
+        lista.appendChild(card);
+      });
+
+      if (totalPaginas > 1) {
+        const btnPrev = document.createElement('button');
+        btnPrev.textContent = '«';
+        btnPrev.disabled = paginaAtual === 1;
+        btnPrev.onclick = () => { paginaAtual--; render(); };
+        pag.appendChild(btnPrev);
+
+        for (let i = 1; i <= totalPaginas; i++) {
+          const b = document.createElement('button');
+          b.textContent = i;
+          if (i === paginaAtual) b.classList.add('current');
+          b.onclick = () => { paginaAtual = i; render(); };
+          pag.appendChild(b);
+        }
+
+        const btnNext = document.createElement('button');
+        btnNext.textContent = '»';
+        btnNext.disabled = paginaAtual === totalPaginas;
+        btnNext.onclick = () => { paginaAtual++; render(); };
+        pag.appendChild(btnNext);
+      }
+    }
+
+    // --- Modal ---
+    function abrirModalImagem(src) {
+      const modal = document.getElementById('modalImagem');
+      const img = document.getElementById('imagemAmpliada');
+      img.src = src;
+      modal.style.display = 'flex';
+    }
+
+    function fecharModalImagem() {
+      const modal = document.getElementById('modalImagem');
+      const img = document.getElementById('imagemAmpliada');
+      img.src = '';
+      modal.style.display = 'none';
+    }
+
+    // Clique nos cards (delegação)
+    document.addEventListener('click', (e) => {
+      const card = e.target.closest('.exercise-card');
+      if (card) {
+        abrirModalImagem(card.dataset.src);
+      }
+      // Fecha modal clicando fora
+      if (e.target.id === 'modalImagem') {
+        fecharModalImagem();
+      }
+    });
+
+    // Fecha com ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') fecharModalImagem();
+    });
+
+    render();
+  </script>
+</body>
+</html>

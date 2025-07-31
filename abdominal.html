@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Abdominais - Exercícios - 2H.Fitness</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="fundo-fixo"></div>
+
+  <img src="imgs/logo.png" alt="Logo da academia 2H.Fitness" class="logo" />
+  <h1>Abdominais</h1>
+
+  <div id="lista" class="lista-exercicios"></div>
+  <div id="paginacao" class="paginacao"></div>
+
+  <a href="superiores.html" class="btn">← Voltar aos grupos superiores</a>
+  <a href="index.html" class="btn">← Página Inicial</a>
+
+  <!-- Modal para imagem ampliada -->
+  <div id="modalImagem" class="modal-img" role="dialog" aria-modal="true" aria-label="GIF ampliado">
+    <img id="imagemAmpliada" src="" alt="Exercício ampliado">
+  </div>
+
+  <footer>
+    <p><b>2H.Fitness Ltda</b> - Rua Teodora Barbosa Ribeiro, 367 - Arrozal, Piraí - RJ</p>
+    <p>CNPJ: 61.202.754/0001-19</p>
+    <p>&copy; 2025 - Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    const exercicios = [
+	  { src: "gifs/superiores/abdominais/Ab-Wheel-Rollout.gif", nome: "Ab Wheel Rollout", descricao: "Exercício avançado para fortalecimento de todo o core." },
+	  { src: "gifs/superiores/abdominais/Alternate-Leg-Raises.gif", nome: "Elevação Alternada de Pernas", descricao: "Trabalha o abdômen inferior e coordenação." },
+	  { src: "gifs/superiores/abdominais/Alternate-Lying-Floor-Leg-Raise.gif", nome: "Elevação Alternada de Pernas Deitado", descricao: "Foco no abdômen inferior com controle." },
+	  { src: "gifs/superiores/abdominais/Barbell-Side-Bend.gif", nome: "Inclinação Lateral com Barra", descricao: "Isola os oblíquos com resistência adicional." },
+	  { src: "gifs/superiores/abdominais/Bicycle-Crunch.gif", nome: "Abdominal Bicicleta", descricao: "Foco em oblíquos e reto abdominal." },
+	  { src: "gifs/superiores/abdominais/Bicycle-Twisting-Crunch.gif", nome: "Abdominal Bicicleta com Rotação", descricao: "Maior ativação dos oblíquos." },
+	  { src: "gifs/superiores/abdominais/body-saw-plank.gif", nome: "Prancha com Deslizamento", descricao: "Trabalho isométrico com movimento dinâmico." },
+	  { src: "gifs/superiores/abdominais/Bodyweight-Windmill.gif", nome: "Moinho Corporal", descricao: "Mobilidade e ativação de core lateral." },
+	  { src: "gifs/superiores/abdominais/burpees.gif", nome: "Burpee", descricao: "Exercício completo com ativação abdominal e cardio." },
+	  { src: "gifs/superiores/abdominais/Butterfly-Sit-up.gif", nome: "Abdominal Borboleta", descricao: "Maior amplitude de movimento para abdômen." },
+	  { src: "gifs/superiores/abdominais/Cable-Side-Bend.gif", nome: "Inclinação Lateral com Cabo", descricao: "Trabalha os oblíquos com resistência contínua." },
+	  { src: "gifs/superiores/abdominais/Cross-Body-Mountain-Climber.gif", nome: "Escalador Cruzado", descricao: "Ativa abdômen, oblíquos e cardio." },
+	  { src: "gifs/superiores/abdominais/Cross-Crunch.gif", nome: "Abdominal Cruzado", descricao: "Ativa simultaneamente abdômen e oblíquos." },
+	  { src: "gifs/superiores/abdominais/Crunch.gif", nome: "Abdominal Clássico", descricao: "Exercício básico para o reto abdominal." },
+	  { src: "gifs/superiores/abdominais/Crunch-With-Leg-Raise.gif", nome: "Abdominal com Elevação de Pernas", descricao: "Adiciona desafio ao abdômen inferior." },
+	  { src: "gifs/superiores/abdominais/Double-Crunches.gif", nome: "Abdominal Duplo", descricao: "Trabalha abdômen superior e inferior." },
+	  { src: "gifs/superiores/abdominais/Double-Leg-Stretch.gif", nome: "Extensão Dupla de Pernas", descricao: "Ativação de abdômen inferior e coordenação." },
+	  { src: "gifs/superiores/abdominais/Dumbbell-Floor-Wipers.gif", nome: "Limpa Vidros com Pernas", descricao: "Fortalece oblíquos e abdômen inferior." },
+	  { src: "gifs/superiores/abdominais/Dumbbell-Side-Bend.gif", nome: "Inclinação Lateral com Halter", descricao: "Fortalecimento unilateral de oblíquos." },
+	  { src: "gifs/superiores/abdominais/Floor-Crunch.gif", nome: "Abdominal no Chão", descricao: "Execução básica e segura para o core." },
+	  { src: "gifs/superiores/abdominais/Flutter-Kicks.gif", nome: "Chutes Alternados", descricao: "Foco total no abdômen inferior." },
+	  { src: "gifs/superiores/abdominais/frog-crunch.gif", nome: "Abdominal Rã", descricao: "Trabalha abdômen com flexão de joelhos." },
+	  { src: "gifs/superiores/abdominais/Front-Plank-With-Arm-And-Leg-Lift.gif", nome: "Prancha com Braço e Perna Elevados", descricao: "Ativa core e melhora equilíbrio." },
+	  { src: "gifs/superiores/abdominais/Front-to-Side-Plank.gif", nome: "Prancha Frontal para Lateral", descricao: "Desafia o core com movimento lateral." },
+	  { src: "gifs/superiores/abdominais/Half-Cross-Crunch.gif", nome: "Meio Abdominal Cruzado", descricao: "Versão reduzida focando oblíquos." },
+	  { src: "gifs/superiores/abdominais/Half-Wipers.gif", nome: "Meio Limpador de Vidro", descricao: "Trabalho oblíquo com rotação parcial." },
+	  { src: "gifs/superiores/abdominais/Hanging-Knee-Raises.gif", nome: "Elevação de Joelhos na Barra", descricao: "Foco no abdômen inferior com peso corporal." },
+	  { src: "gifs/superiores/abdominais/Hanging-Side-Knee-Raises.gif", nome: "Elevação Lateral de Joelhos na Barra", descricao: "Intensifica trabalho oblíquo suspenso." },
+	  { src: "gifs/superiores/abdominais/Heel-Touch.gif", nome: "Toque no Calcanhar", descricao: "Foco nos oblíquos com flexão lateral." },
+	  { src: "gifs/superiores/abdominais/High-Knee-Skips_Cardio.gif", nome: "Elevação de Joelhos", descricao: "Cardio abdominal com foco no core." },
+	  { src: "gifs/superiores/abdominais/High-Knee-Squat.gif", nome: "Agachamento com Elevação de Joelhos", descricao: "Combina membros inferiores com core." },
+	  { src: "gifs/superiores/abdominais/High-Plank.gif", nome: "Prancha Alta", descricao: "Estabilização do core e parte superior." },
+	  { src: "gifs/superiores/abdominais/Incline-Leg-Hip-Raise.gif", nome: "Elevação de Quadril Inclinada", descricao: "Ativa o abdômen inferior em banco inclinado." },
+	  { src: "gifs/superiores/abdominais/Jackknife-Sit-ups.gif", nome: "Abdominal Navalha", descricao: "Movimento explosivo para o abdômen completo." },
+	  { src: "gifs/superiores/abdominais/Kneeling-Cable-Crunch.gif", nome: "Abdominal com Cabo Ajoelhado", descricao: "Foco com resistência no reto abdominal." },
+	  { src: "gifs/superiores/abdominais/Leg-Pull-In-Knee-ups.gif", nome: "Puxada de Joelhos", descricao: "Trabalha flexores do quadril e abdômen." },
+	  { src: "gifs/superiores/abdominais/Leg-Raise-Dragon-Flag.gif", nome: "Elevação de Pernas Dragon Flag", descricao: "Exercício avançado para abdômen e controle." },
+	  { src: "gifs/superiores/abdominais/Leg-Scissors.gif", nome: "Tesoura", descricao: "Isolamento do abdômen inferior em movimento alternado." },
+	  { src: "gifs/superiores/abdominais/Long-Arm-Crunch.gif", nome: "Abdominal com Braços Estendidos", descricao: "Aumenta a alavanca e intensidade no abdômen." },
+	  { src: "gifs/superiores/abdominais/L-Sit.gif", nome: "L-Sit", descricao: "Isometria intensa para abdômen e quadríceps." },
+	  { src: "gifs/superiores/abdominais/Lying-Knee-Raise.gif", nome: "Elevação de Joelhos Deitado", descricao: "Trabalha o abdômen inferior com controle." },
+	  { src: "gifs/superiores/abdominais/Lying-Leg-Raise.gif", nome: "Elevação de Pernas Deitado", descricao: "Foco no abdômen inferior e lombar estável." },
+	  { src: "gifs/superiores/abdominais/Lying-Toe-Touches.gif", nome: "Toque nos Pés Deitado", descricao: "Abdômen superior e coordenação." },
+	  { src: "gifs/superiores/abdominais/Medicine-Ball-Sit-up-Throw.gif", nome: "Abdominal com Bola Medicinal", descricao: "Exercício dinâmico e funcional." },
+	  { src: "gifs/superiores/abdominais/Mountain-climber.gif", nome: "Mountain Climber", descricao: "Trabalho cardio e abdominal simultâneo." },
+	  { src: "gifs/superiores/abdominais/Oblique-Floor-Crunches.gif", nome: "Abdominal Oblíquo no Chão", descricao: "Ativação isolada dos oblíquos." },
+	  { src: "gifs/superiores/abdominais/plank.gif", nome: "Prancha", descricao: "Base para estabilidade e resistência do core." },
+	  { src: "gifs/superiores/abdominais/Plank-Jacks-Extended-Leg.gif", nome: "Prancha com Abertura de Pernas", descricao: "Abdômen com componente cardiovascular." },
+	  { src: "gifs/superiores/abdominais/PLANK-KNEE-TO-ELBOW.gif", nome: "Prancha com elevação de joelho lateral", descricao: "Coordenação e ativação dos oblíquos." },
+	  { src: "gifs/superiores/abdominais/Plank-Leg-Lift.gif", nome: "Prancha com Elevação de Perna", descricao: "Trabalha estabilidade do core e glúteos." },
+	  { src: "gifs/superiores/abdominais/Russian-Twist.gif", nome: "Torção Russa", descricao: "Oblíquos e coordenação com rotação." },
+	  { src: "gifs/superiores/abdominais/Seated-Bench-Leg-Pull-in.gif", nome: "Puxada de Pernas Sentado", descricao: "Abdômen inferior em banco." },
+	  { src: "gifs/superiores/abdominais/Seated-Flutter-Kick.gif", nome: "Chute Alternado Sentado", descricao: "Foco no abdômen inferior com menor impacto." },
+	  { src: "gifs/superiores/abdominais/Seated-Oblique-Twist.gif", nome: "Torção Sentado", descricao: "Isolamento dos oblíquos com rotação controlada." },
+	  { src: "gifs/superiores/abdominais/Side-Bridge.gif", nome: "Prancha Lateral", descricao: "Estabilidade lateral e oblíquos." },
+	  { src: "gifs/superiores/abdominais/Side-Bridge-Hip-Abduction.gif", nome: "Prancha Lateral com Elevação", descricao: "Trabalho combinado de core e glúteos." },
+	  { src: "gifs/superiores/abdominais/Side-Plank-Knee-to-Elbow.gif", nome: "Prancha Lateral com Toque no Cotovelo", descricao: "Movimento dinâmico para oblíquos." },
+	  { src: "gifs/superiores/abdominais/Side-Plank-Leg-Raises.gif", nome: "Prancha Lateral com Elevação de Perna", descricao: "Combinação de força e equilíbrio." },
+	  { src: "gifs/superiores/abdominais/Sit-ups.gif", nome: "Abdominal Completo", descricao: "Movimento clássico de flexão total do tronco." },
+	  { src: "gifs/superiores/abdominais/SNAP-JUMPS.gif", nome: "Salto Explosivo de Core", descricao: "Ativação intensa com componente cardio." },
+	  { src: "gifs/superiores/abdominais/Spider-Plank.gif", nome: "Prancha Aranha", descricao: "Ativa abdômen e oblíquos com joelho lateral." },
+	  { src: "gifs/superiores/abdominais/Standing-Cable-Crunch.gif", nome: "Abdominal em Pé com Cabo", descricao: "Contração abdominal com resistência vertical." },
+	  { src: "gifs/superiores/abdominais/Standing-Toe-Touch.gif", nome: "Toque nos Pés em Pé", descricao: "Trabalha core com flexão de tronco." },
+	  { src: "gifs/superiores/abdominais/swiss-ball-rollout.gif", nome: "Extensão com Bola Suíça", descricao: "Core profundo com desafio de equilíbrio." },
+	  { src: "gifs/superiores/abdominais/T-Cross-sit-up.gif", nome: "Abdominal Cruzado em T", descricao: "Ativa oblíquos com rotação controlada." },
+	  { src: "gifs/superiores/abdominais/Teaser-Pilates.gif", nome: "Pilates Teaser", descricao: "Foco no controle e contração abdominal." },
+	  { src: "gifs/superiores/abdominais/Toe-Reaches.gif", nome: "Toque nos Dedos", descricao: "Contração de abdômen superior." },
+	  { src: "gifs/superiores/abdominais/Tuck-Crunch.gif", nome: "Crunch com Flexão", descricao: "Ativação completa em movimento compacto." },
+	  { src: "gifs/superiores/abdominais/V-Up-Down-with-Stability-ball.gif", nome: "V-Up com Bola", descricao: "Abdômen total com estabilidade adicional." },
+	  { src: "gifs/superiores/abdominais/Weighted-Crunch.gif", nome: "Abdominal com Carga", descricao: "Maior resistência no reto abdominal." },
+	  { src: "gifs/superiores/abdominais/Weighted-Front-Plank.gif", nome: "Prancha com Peso", descricao: "Estabilidade aumentada com carga." },
+	  { src: "gifs/superiores/abdominais/weighted-lying-wrist-curl.gif", nome: "Rosca de Pulso Deitado com Bola", descricao: "Erro — exercício de antebraço." },
+	  { src: "gifs/superiores/abdominais/weighted-situps.gif", nome: "Abdominal com Peso", descricao: "Trabalho completo com sobrecarga adicional." }
+	];
+
+
+    const ITENS_POR_PAGINA = 10;
+    let paginaAtual = 1;
+
+    function render() {
+      const lista = document.getElementById('lista');
+      const pag = document.getElementById('paginacao');
+
+      lista.innerHTML = '';
+      pag.innerHTML = '';
+
+      const total = exercicios.length;
+      const totalPaginas = Math.ceil(total / ITENS_POR_PAGINA);
+      const start = (paginaAtual - 1) * ITENS_POR_PAGINA;
+      const end = start + ITENS_POR_PAGINA;
+      const itensPagina = exercicios.slice(start, end);
+
+      itensPagina.forEach(e => {
+        const card = document.createElement('div');
+        card.className = 'exercise-card';
+        card.setAttribute('data-src', e.src); // para o modal
+        card.innerHTML = `
+          <img src="${e.src}" alt="${e.nome}">
+          <div class="exercise-info">
+            <h4>${e.nome}</h4>
+            <p>${e.descricao}</p>
+          </div>
+        `;
+        lista.appendChild(card);
+      });
+
+      if (totalPaginas > 1) {
+        const btnPrev = document.createElement('button');
+        btnPrev.textContent = '«';
+        btnPrev.disabled = paginaAtual === 1;
+        btnPrev.onclick = () => { paginaAtual--; render(); };
+        pag.appendChild(btnPrev);
+
+        for (let i = 1; i <= totalPaginas; i++) {
+          const b = document.createElement('button');
+          b.textContent = i;
+          if (i === paginaAtual) b.classList.add('current');
+          b.onclick = () => { paginaAtual = i; render(); };
+          pag.appendChild(b);
+        }
+
+        const btnNext = document.createElement('button');
+        btnNext.textContent = '»';
+        btnNext.disabled = paginaAtual === totalPaginas;
+        btnNext.onclick = () => { paginaAtual++; render(); };
+        pag.appendChild(btnNext);
+      }
+    }
+
+    // --- Modal ---
+    function abrirModalImagem(src) {
+      const modal = document.getElementById('modalImagem');
+      const img = document.getElementById('imagemAmpliada');
+      img.src = src;
+      modal.style.display = 'flex';
+    }
+
+    function fecharModalImagem() {
+      const modal = document.getElementById('modalImagem');
+      const img = document.getElementById('imagemAmpliada');
+      img.src = '';
+      modal.style.display = 'none';
+    }
+
+    // Clique nos cards (delegação)
+    document.addEventListener('click', (e) => {
+      const card = e.target.closest('.exercise-card');
+      if (card) {
+        abrirModalImagem(card.dataset.src);
+      }
+      // Fecha modal clicando fora
+      if (e.target.id === 'modalImagem') {
+        fecharModalImagem();
+      }
+    });
+
+    // Fecha com ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') fecharModalImagem();
+    });
+
+    render();
+  </script>
+</body>
+</html>

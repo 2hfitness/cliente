@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tríceps - Exercícios - 2H.Fitness</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="fundo-fixo"></div>
+
+  <img src="imgs/logo.png" alt="Logo da academia 2H.Fitness" class="logo" />
+  <h1>Tríceps</h1>
+
+  <div id="lista" class="lista-exercicios"></div>
+  <div id="paginacao" class="paginacao"></div>
+
+  <a href="superiores.html" class="btn">← Voltar aos grupos superiores</a>
+  <a href="index.html" class="btn">← Página Inicial</a>
+
+  <!-- Modal -->
+  <div id="modalImagem" class="modal-img" role="dialog" aria-modal="true" aria-label="GIF ampliado">
+    <img id="imagemAmpliada" src="" alt="Exercício ampliado">
+  </div>
+
+  <footer>
+    <p><b>2H.Fitness Ltda</b> - Rua Teodora Barbosa Ribeiro, 367 - Arrozal, Piraí - RJ</p>
+    <p>CNPJ: 61.202.754/0001-19</p>
+    <p>&copy; 2025 - Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    const exercicios = [
+      { src: "gifs/superiores/triceps/Alternating-Lying-Dumbbell-Triceps-Extension.gif", nome: "Tríceps testa alternado com halteres", descricao: "Exercício isolado para tríceps com halteres, alternando os braços." },
+      { src: "gifs/superiores/triceps/Barbell-JM-Press.gif", nome: "JM Press com barra", descricao: "Variação entre supino e tríceps testa, foca tríceps." },
+      { src: "gifs/superiores/triceps/Barbell-Lying-Back-of-the-Head-Tricep-Extension.gif", nome: "Tríceps testa barra atrás da cabeça", descricao: "Movimento de extensão atrás da cabeça para tríceps." },
+      { src: "gifs/superiores/triceps/Barbell-Reverse-Grip-Skullcrusher-1.gif", nome: "Tríceps testa pegada reversa", descricao: "Exercício focado no tríceps com pegada supinada." },
+      { src: "gifs/superiores/triceps/Barbell-Triceps-Extension.gif", nome: "Extensão de tríceps com barra", descricao: "Tríceps testa tradicional com barra." },
+      { src: "gifs/superiores/triceps/Bench-Dips.gif", nome: "Mergulho no banco", descricao: "Exercício de peso corporal focado em tríceps e ombros." },
+      { src: "gifs/superiores/triceps/Bent-Over-Triceps-Kickback.gif", nome: "Tríceps coice com halteres", descricao: "Extensão de tríceps na posição inclinada." },
+      { src: "gifs/superiores/triceps/Body-Ups.gif", nome: "Body ups", descricao: "Exercício de calistenia, trabalha tríceps e peitoral." },
+      { src: "gifs/superiores/triceps/Cable-Incline-Triceps-Extension.gif", nome: "Tríceps inclinado no cabo", descricao: "Extensão de tríceps no cabo em banco inclinado." },
+      { src: "gifs/superiores/triceps/Cable-One-Arm-Overhead-Triceps-Extension.gif", nome: "Tríceps unilateral no cabo acima da cabeça", descricao: "Trabalha o tríceps isoladamente com polia alta." },
+      { src: "gifs/superiores/triceps/Cable-Rear-Drive.gif", nome: "Extensão posterior no cabo", descricao: "Movimento de extensão de braço atrás do corpo." },
+      { src: "gifs/superiores/triceps/Cable-Rope-Overhead-Triceps-Extension.gif", nome: "Tríceps corda acima da cabeça", descricao: "Exercício isolado com corda, foco nos tríceps." },
+      { src: "gifs/superiores/triceps/Side-Side-Triceps-Extension.gif", nome: "Tríceps lateral alternado", descricao: "Extensão alternada lateral para tríceps." },
+      { src: "gifs/superiores/triceps/Cable-Tricep-Kickback.gif", nome: "Coice de tríceps no cabo", descricao: "Tríceps coice usando polia baixa." },
+      { src: "gifs/superiores/triceps/Close-Grip-Knee-Push-up.gif", nome: "Flexão joelhos pegada fechada", descricao: "Flexão adaptada, foco em tríceps." },
+      { src: "gifs/superiores/triceps/Cross-Arm-Push-up.gif", nome: "Flexão braços cruzados", descricao: "Flexão difícil para tríceps e peitoral." },
+      { src: "gifs/superiores/triceps/Decline-Close-Grip-Bench-To-SkullCrusher.gif", nome: "Supino fechado declinado + tríceps testa", descricao: "Combina supino fechado e tríceps testa." },
+      { src: "gifs/superiores/triceps/Decline-Dumbbell-Triceps-Extension.gif", nome: "Extensão de tríceps com halteres declinado", descricao: "Exercício isolado de tríceps no banco declinado." },
+      { src: "gifs/superiores/triceps/Diamond-Push-up.gif", nome: "Flexão diamante", descricao: "Flexão com mãos juntas, foco em tríceps." },
+      { src: "gifs/superiores/triceps/Dumbbell-Incline-Two-Arm-Extension.gif", nome: "Extensão de tríceps dois braços inclinado", descricao: "Extensão bilateral com halteres no banco inclinado." },
+      { src: "gifs/superiores/triceps/Dumbbell-Kickback.gif", nome: "Coice de tríceps com halteres", descricao: "Tríceps coice tradicional." },
+      { src: "gifs/superiores/triceps/Dumbbell-Skull-Crusher.gif", nome: "Tríceps testa com halteres", descricao: "Versão com halteres do tríceps testa." },
+      { src: "gifs/superiores/triceps/Dumbbell-Triceps-Extension.gif", nome: "Extensão tríceps com halter", descricao: "Tríceps acima da cabeça com halter." },
+      { src: "gifs/superiores/triceps/EZ-Bar-Lying-Close-Grip-Triceps-Extension-Behind-Head.gif", nome: "Tríceps testa com barra EZ atrás da cabeça", descricao: "Extensão focando cabeça longa do tríceps." },
+      { src: "gifs/superiores/triceps/Forearm-Push-up.gif", nome: "Flexão com antebraços", descricao: "Variação de flexão para tríceps e core." },
+      { src: "gifs/superiores/triceps/High-Pulley-Overhead-Tricep-Extension.gif", nome: "Tríceps corda acima da cabeça na polia alta", descricao: "Exercício isolado de tríceps com polia." },
+      { src: "gifs/superiores/triceps/Kneeling-Cable-Triceps-Extension.gif", nome: "Extensão tríceps ajoelhado no cabo", descricao: "Variante para isolar tríceps." },
+      { src: "gifs/superiores/triceps/Knee-Push-Up.gif", nome: "Flexão joelhos", descricao: "Flexão adaptada para menos carga." },
+      { src: "gifs/superiores/triceps/One-Arm-Lying-Triceps-Extension.gif", nome: "Tríceps testa unilateral", descricao: "Extensão isolada de um braço." },
+      { src: "gifs/superiores/triceps/One-Arm-Pronated-Dumbbell-Triceps-Extension-.gif", nome: "Extensão tríceps pronada unilateral", descricao: "Movimento com pegada pronada." },
+      { src: "gifs/superiores/triceps/One-Arm-Reverse-Push-Down.gif", nome: "Tríceps inverso unilateral no cabo", descricao: "Extensão de tríceps com pegada supinada." },
+      { src: "gifs/superiores/triceps/One-Arm-Single-leg-Bench-Dips.gif", nome: "Mergulho unilateral", descricao: "Dip usando uma perna apoiada." },
+      { src: "gifs/superiores/triceps/One-arm-triceps-pushdown.gif", nome: "Tríceps unilateral polia baixa", descricao: "Extensão unilateral na polia." },
+      { src: "gifs/superiores/triceps/Pushdown.gif", nome: "Tríceps pulley", descricao: "Exercício clássico de tríceps na polia." },
+      { src: "gifs/superiores/triceps/Rear-Drive.gif", nome: "Extensão para trás", descricao: "Movimento de extensão atrás do corpo." },
+      { src: "gifs/superiores/triceps/Reverse-Grip-Pushdown.gif", nome: "Tríceps inverso", descricao: "Extensão com pegada supinada na polia." },
+      { src: "gifs/superiores/triceps/Rope-Pushdown.gif", nome: "Tríceps corda", descricao: "Exercício isolado com corda na polia baixa." },
+      { src: "gifs/superiores/triceps/Seated-Dumbbell-Triceps-Extension.gif", nome: "Extensão tríceps sentado com halter", descricao: "Extensão acima da cabeça." },
+      { src: "gifs/superiores/triceps/Seated-EZ-Bar-Overhead-Triceps-Extension.gif", nome: "Tríceps barra EZ sentado acima da cabeça", descricao: "Variação sentada com barra EZ." },
+      { src: "gifs/superiores/triceps/Side-One-Arm-Reverse-Pushdown.gif", nome: "Tríceps inverso lateral", descricao: "Extensão lateral com pegada supinada." },
+      { src: "gifs/superiores/triceps/Standing-Barbell-Triceps-Extension.gif", nome: "Extensão tríceps em pé com barra", descricao: "Exercício de extensão acima da cabeça." },
+      { src: "gifs/superiores/triceps/Triceps-Dips-on-Floor.gif", nome: "Tríceps no chão", descricao: "Versão de dips com mãos no chão." },
+      { src: "gifs/superiores/triceps/V-bar-Pushdown.gif", nome: "Tríceps barra V", descricao: "Exercício clássico com barra V na polia." }
+    ];
+
+    const ITENS_POR_PAGINA = 10;
+    let paginaAtual = 1;
+
+    function render() {
+      const lista = document.getElementById('lista');
+      const pag = document.getElementById('paginacao');
+
+      lista.innerHTML = '';
+      pag.innerHTML = '';
+
+      const total = exercicios.length;
+      const totalPaginas = Math.ceil(total / ITENS_POR_PAGINA);
+      const start = (paginaAtual - 1) * ITENS_POR_PAGINA;
+      const end = start + ITENS_POR_PAGINA;
+      const itensPagina = exercicios.slice(start, end);
+
+      itensPagina.forEach(e => {
+        const card = document.createElement('div');
+        card.className = 'exercise-card';
+        card.setAttribute('data-src', e.src);
+        card.innerHTML = `
+          <img src="${e.src}" alt="${e.nome}">
+          <div class="exercise-info">
+            <h4>${e.nome}</h4>
+            <p>${e.descricao}</p>
+          </div>
+        `;
+        lista.appendChild(card);
+      });
+
+      if (totalPaginas > 1) {
+        const btnPrev = document.createElement('button');
+        btnPrev.textContent = '«';
+        btnPrev.disabled = paginaAtual === 1;
+        btnPrev.onclick = () => { paginaAtual--; render(); };
+        pag.appendChild(btnPrev);
+
+        for (let i = 1; i <= totalPaginas; i++) {
+          const b = document.createElement('button');
+          b.textContent = i;
+          if (i === paginaAtual) b.classList.add('current');
+          b.onclick = () => { paginaAtual = i; render(); };
+          pag.appendChild(b);
+        }
+
+        const btnNext = document.createElement('button');
+        btnNext.textContent = '»';
+        btnNext.disabled = paginaAtual === totalPaginas;
+        btnNext.onclick = () => { paginaAtual++; render(); };
+        pag.appendChild(btnNext);
+      }
+    }
+
+    function abrirModalImagem(src) {
+      document.getElementById('imagemAmpliada').src = src;
+      document.getElementById('modalImagem').style.display = 'flex';
+    }
+
+    function fecharModalImagem() {
+      document.getElementById('imagemAmpliada').src = '';
+      document.getElementById('modalImagem').style.display = 'none';
+    }
+
+    document.addEventListener('click', (e) => {
+      const card = e.target.closest('.exercise-card');
+      if (card) abrirModalImagem(card.dataset.src);
+      if (e.target.id === 'modalImagem') fecharModalImagem();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') fecharModalImagem();
+    });
+
+    render();
+  </script>
+</body>
+</html>

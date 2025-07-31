@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panturrilhas - Exercícios - 2H.Fitness</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="fundo-fixo"></div>
+
+  <img src="imgs/logo.png" alt="Logo da academia 2H.Fitness" class="logo" />
+  <h1>Panturrilhas</h1>
+
+  <div id="lista" class="lista-exercicios"></div>
+  <div id="paginacao" class="paginacao"></div>
+
+  <a href="inferiores.html" class="btn">← Voltar aos grupos inferiores</a>
+  <a href="index.html" class="btn">← Página Inicial</a>
+
+  <!-- Modal para imagem ampliada -->
+  <div id="modalImagem" class="modal-img" role="dialog" aria-modal="true" aria-label="GIF ampliado">
+    <img id="imagemAmpliada" src="" alt="Exercício ampliado">
+  </div>
+
+  <footer>
+    <p><b>2H.Fitness Ltda</b> - Rua Teodora Barbosa Ribeiro, 367 - Arrozal, Piraí - RJ</p>
+    <p>CNPJ: 61.202.754/0001-19</p>
+    <p>&copy; 2025 - Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+	const exercicios = [
+	  { src: "gifs/inferiores/panturrilhas/Barbell-Seated-Calf-Raise.gif", nome: "Elevação de panturrilha sentado com barra", descricao: "Trabalha os músculos gastrocnêmio e sóleo com carga livre." },
+	  { src: "gifs/inferiores/panturrilhas/Calf-Raise-with-Resistance-Band.gif", nome: "Elevação com faixa de resistência", descricao: "Excelente para ativação leve das panturrilhas." },
+	  { src: "gifs/inferiores/panturrilhas/Donkey-Calf-Raise.gif", nome: "Elevação estilo burro", descricao: "Foco nos gastrocnêmios com forte alongamento." },
+	  { src: "gifs/inferiores/panturrilhas/Dumbbell-Calf-Raise.gif", nome: "Elevação com halteres", descricao: "Variação em pé para fortalecimento bilateral." },
+	  { src: "gifs/inferiores/panturrilhas/Leg-Press-Calf-Raise.gif", nome: "Elevação na leg press", descricao: "Trabalha panturrilhas com maior carga e controle." },
+	  { src: "gifs/inferiores/panturrilhas/Single-Calf-Raise-on-Leg-Press-Machine.gif", nome: "Unilateral na leg press", descricao: "Isolamento de cada lado para equilíbrio muscular." },
+	  { src: "gifs/inferiores/panturrilhas/Single-Leg-Calf-Raises.gif", nome: "Elevação unilateral em pé", descricao: "Exercício funcional e eficaz para força isolada." },
+	  { src: "gifs/inferiores/panturrilhas/Single-Leg-Calves-Stretch.gif", nome: "Alongamento de panturrilha unilateral", descricao: "Melhora a flexibilidade e recuperação muscular." },
+	  { src: "gifs/inferiores/panturrilhas/Single-Leg-Donkey-Calf-Raise.gif", nome: "Burro unilateral", descricao: "Ênfase no alongamento e controle individual." },
+	  { src: "gifs/inferiores/panturrilhas/Standing-Barbell-Calf-Raise.gif", nome: "Elevação com barra em pé", descricao: "Estímulo bilateral com sobrecarga axial." },
+	  { src: "gifs/inferiores/panturrilhas/Standing-Calf-Raise.gif", nome: "Elevação em pé", descricao: "Versão tradicional para panturrilhas em qualquer lugar." },
+	  { src: "gifs/inferiores/panturrilhas/Weighted-Seated-Calf-Raise.gif", nome: "Elevação sentado com peso", descricao: "Fortalecimento do sóleo com sobrecarga concentrada." }
+	];
+	
+    const ITENS_POR_PAGINA = 10;
+    let paginaAtual = 1;
+
+    function render() {
+      const lista = document.getElementById('lista');
+      const pag = document.getElementById('paginacao');
+
+      lista.innerHTML = '';
+      pag.innerHTML = '';
+
+      const total = exercicios.length;
+      const totalPaginas = Math.ceil(total / ITENS_POR_PAGINA);
+      const start = (paginaAtual - 1) * ITENS_POR_PAGINA;
+      const end = start + ITENS_POR_PAGINA;
+      const itensPagina = exercicios.slice(start, end);
+
+      itensPagina.forEach(e => {
+        const card = document.createElement('div');
+        card.className = 'exercise-card';
+        card.setAttribute('data-src', e.src); // para o modal
+        card.innerHTML = `
+          <img src="${e.src}" alt="${e.nome}">
+          <div class="exercise-info">
+            <h4>${e.nome}</h4>
+            <p>${e.descricao}</p>
+          </div>
+        `;
+        lista.appendChild(card);
+      });
+
+      if (totalPaginas > 1) {
+        const btnPrev = document.createElement('button');
+        btnPrev.textContent = '«';
+        btnPrev.disabled = paginaAtual === 1;
+        btnPrev.onclick = () => { paginaAtual--; render(); };
+        pag.appendChild(btnPrev);
+
+        for (let i = 1; i <= totalPaginas; i++) {
+          const b = document.createElement('button');
+          b.textContent = i;
+          if (i === paginaAtual) b.classList.add('current');
+          b.onclick = () => { paginaAtual = i; render(); };
+          pag.appendChild(b);
+        }
+
+        const btnNext = document.createElement('button');
+        btnNext.textContent = '»';
+        btnNext.disabled = paginaAtual === totalPaginas;
+        btnNext.onclick = () => { paginaAtual++; render(); };
+        pag.appendChild(btnNext);
+      }
+    }
+
+    // --- Modal ---
+    function abrirModalImagem(src) {
+      const modal = document.getElementById('modalImagem');
+      const img = document.getElementById('imagemAmpliada');
+      img.src = src;
+      modal.style.display = 'flex';
+    }
+
+    function fecharModalImagem() {
+      const modal = document.getElementById('modalImagem');
+      const img = document.getElementById('imagemAmpliada');
+      img.src = '';
+      modal.style.display = 'none';
+    }
+
+    // Clique nos cards (delegação)
+    document.addEventListener('click', (e) => {
+      const card = e.target.closest('.exercise-card');
+      if (card) {
+        abrirModalImagem(card.dataset.src);
+      }
+      // Fecha modal clicando fora
+      if (e.target.id === 'modalImagem') {
+        fecharModalImagem();
+      }
+    });
+
+    // Fecha com ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') fecharModalImagem();
+    });
+
+    render();
+  </script>
+</body>
+</html>
