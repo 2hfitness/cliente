@@ -1,7 +1,7 @@
 {
   "name": "2H.Fitness",
-  "short_name": "2H",
-  "start_url": "/",
+  "short_name": "2HFitness",
+  "start_url": "/index.html",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#000000",
